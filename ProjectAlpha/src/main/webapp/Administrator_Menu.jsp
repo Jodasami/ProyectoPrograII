@@ -85,7 +85,7 @@
                 </td>
                 <td>
                     <font size="4" color="white">
-                    <a href="./Show_Admin.jsp">Ver Usuarios y Roles</a>
+                    <a href="AdminManagementServlet">Ver Usuarios y Roles</a>
                     </font>
                 </td>
             </tr>

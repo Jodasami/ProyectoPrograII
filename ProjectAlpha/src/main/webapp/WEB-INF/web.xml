@@ -55,10 +55,6 @@
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
-    <servlet-mapping>
-        <servlet-name>AdminManagementServlett</servlet-name>
-        <url-pattern>/AdminManagementServlett</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

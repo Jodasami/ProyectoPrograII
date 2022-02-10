@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,9 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
+@WebServlet(name = "AdminManagementServlet", urlPatterns = {"/AdminManagementServlet"})
 public class AdminManagementServlet extends HttpServlet {
-  
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,11 +36,9 @@ public class AdminManagementServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     UserBusiness userBusiness;
     LinkedList<User> users;
-    
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,10 +47,10 @@ public class AdminManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminManagementServlett</title>");            
+            out.println("<title>Servlet AdminManagementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminManagementServlett at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminManagementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +65,6 @@ public class AdminManagementServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     public void init()
             throws ServletException {
@@ -74,22 +73,28 @@ public class AdminManagementServlet extends HttpServlet {
         users = new LinkedList<>();
 
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-         processRequest(request, response);
 
         try {
+            User user = userBusiness.getUser(userBusiness.getCurrentUser());
             users = userBusiness.getAllUsers();
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_All_Users.jsp");
+            if (user.getRole().equalsIgnoreCase("clerk")) {
 
-            request.setAttribute("users", users);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Clerk.jsp");
+                request.setAttribute("users", users);
+                requestDispatcher.forward(request, response);
 
-            requestDispatcher.forward(request, response);
+            } else {
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Admin.jsp");
+                request.setAttribute("users", users);
+                requestDispatcher.forward(request, response);
+
+            }
 
         } catch (ParseException ex) {
             Logger.getLogger(AdminRetrievalServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +103,6 @@ public class AdminManagementServlet extends HttpServlet {
         }
 
     }
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.

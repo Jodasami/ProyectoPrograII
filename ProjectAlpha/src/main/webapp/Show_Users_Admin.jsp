@@ -15,25 +15,26 @@
     <body background="Images/BG.png">
 
         <i>
-            <marquee  <b><font color="lightgreen" size="8">Lista de Clientes en el Sistema </font></b>
+            <marquee  <b><font color="white" size="8">Lista de Clientes en el Sistema </font></b>
             </marquee>
         </i>
 
         <br><br><br>
 
     <center>
+        <br><br>
         <table border="2">
 
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>Nombre del cliente</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>ID</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>Teléfono</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>Usuario</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>Contraseña</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>¿Posee Discapacidad?</b></font> </td>
-            <td bgcolor="white" ><font size="5" color="#FFFFFF"><b>Rol de Usuario</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Nombre del cliente</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>ID</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Teléfono</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Usuario</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Contraseña</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>¿Posee Discapacidad?</b></font> </td>
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Rol de Usuario</b></font> </td>
 
             <c:forEach items="${users}" var="currentUser" varStatus="counter">
-                <c:set var="color" value="${counter.index%2==0? 'black' : 'blue'}"/>
+                <c:set var="color" value="${counter.index%2==0? '#2666CF' : '#F5F2E7'}"/>
                 <tr bgcolor= "${color}">
 
                     <td><font size="5"><c:out value="${currentUser.name}"/> </font> </td>
@@ -53,7 +54,7 @@
 
         </table>
         <br><br><br>
-        <input type="button" value="Volver al menú principal" onclick="window.location = 'Administrator_Menu.jsp'" >
+        <input type="button" value="Volver al menú principal" onclick= "history.back()" >
     </center>
 
 </body>
