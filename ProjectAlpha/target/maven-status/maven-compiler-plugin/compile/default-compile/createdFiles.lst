@@ -1,0 +1,5 @@
+Domain\Vehicle.class
+Domain\VehicleType.class
+Servlets\VehicleInfoServlet.class
+Business\VehicleBusiness.class
+Data\VehicleData.class
