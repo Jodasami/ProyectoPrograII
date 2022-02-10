@@ -76,7 +76,7 @@ public class VehicleManagementServlet extends HttpServlet {
 
         try {
 
-            Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentLoggedUser());
+            Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentUser());
 
             vehicleBusiness.deleteVehicle(vehicle.getPlate());
 
@@ -104,7 +104,7 @@ public class VehicleManagementServlet extends HttpServlet {
 
             Vehicle vehicle;
 
-            vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentLoggedUser());
+            vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentUser());
 
             vehicleBusiness.modifyVehicle(vehicle.getPlate(), vehicle);
 

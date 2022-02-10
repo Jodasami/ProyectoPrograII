@@ -40,8 +40,8 @@
                         <a href="./Park_Vehicle_In_ParkingLot.jsp">Asignar Espacio de Vehículo</a>
                         </font>
                     </td>
-                    
-                    
+
+
                 </tr>
                 <tr>
                     <td>
@@ -54,7 +54,7 @@
                         <a href="./Register_Client.jsp">Registar Usuario</a>
                         </font>
                     </td>
-                    
+
                 </tr>
                 <tr>
                     <td> 
@@ -64,7 +64,7 @@
                     </td>
                     <td>
                         <font size="4" color="white">
-                        <a href="./ShowAll_Customers.jsp">Ver Usuarios Inscritos</a>
+                        <a href="AdminManagementServlet">Ver Usuarios Inscritos</a>
                         </font>
                     </td>
                 </tr>
@@ -74,12 +74,12 @@
                         <a href="./ShowAll_Vehicles.jsp">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
-                    
+
                 </tr>
             </tbody>
         </table>
         <br><br>
-         <input type="button" value="Cerrar Sesión" onclick="window.location='Login.jsp'" >
+        <input type="button" value="Cerrar Sesión" onclick="window.location = 'Login.jsp'" >
     </center>
 </body>
 </html>

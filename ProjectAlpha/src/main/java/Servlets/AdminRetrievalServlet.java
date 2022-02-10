@@ -10,6 +10,7 @@ import Domain.User;
 import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -20,32 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.parser.ParseException;
 
-/**
- *
- * @author Fabio
- */
-@WebServlet(name = "UserManagementServlet", urlPatterns = {"/UserManagementServlet"})
-public class UserManagementServlet extends HttpServlet {
+@WebServlet(name = "UserRetrievalServlet", urlPatterns = {"/UserRetrievalServlet"})
+public class AdminRetrievalServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     UserBusiness userBusiness;
-    VehicleBusiness vehicleBusiness = new VehicleBusiness();
-
-    @Override
-    public void init()
-            throws ServletException {
-
-        userBusiness = new UserBusiness();
-
-    }
+    VehicleBusiness vehicleBusiness;
+    LinkedList<User> users;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,23 +36,13 @@ public class UserManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UserManagementServlet</title>");
+            out.println("<title>Servlet userRetrievalServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UserManagementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet userRetrievalServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-     public boolean checkboxToString(String checkbox) {
-        boolean disabilityPresented;
-        if (checkbox==null) {
-            disabilityPresented = false;
-        } else {
-            disabilityPresented = true;
-        }
-        return disabilityPresented;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,27 +55,47 @@ public class UserManagementServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void init()
+            throws ServletException {
 
-        try{
+        userBusiness = new UserBusiness();
+        vehicleBusiness = new VehicleBusiness();
+        users = new LinkedList<>();
 
-                String userUsername = userBusiness.getCurrentLoggedUser();
-                
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        try {
+            String action = request.getParameter("action");
+            String customerUsername = request.getParameter("userUsername");
+//            userBusiness.setCurrentUser(customerUsername);
+
+            if (action.equalsIgnoreCase("delete")) {
+
+//                String userUsername = userBusiness.getCurrentUser();
+
                 //if para verificar si tiene un carro registrado y eliminarlo
-        
-                Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(userUsername);
-                if(vehicle==null){
-                     userBusiness.deleteUser(userUsername);
-                }else{
+                Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerUsername);
+                if (vehicle == null) {
+                    userBusiness.deleteUser(customerUsername);
+                } else {
                     vehicleBusiness.deleteVehicle(vehicle.getPlate());
-                    userBusiness.deleteUser(userUsername);
+                    userBusiness.deleteUser(customerUsername);
                 }
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
                 dispatcher.forward(request, response);
 
-            
+            } else if (action.equalsIgnoreCase("edit")) {
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_User.jsp");
+                dispatcher.forward(request, response);
+
+            }
+
         } catch (ParseException | IOException | ServletException | java.text.ParseException ex) {
-            Logger.getLogger(UserManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRetrievalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -117,28 +108,8 @@ public class UserManagementServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        
-        try {
-            String name = request.getParameter("name");
-            String id = request.getParameter("id");
-            String phone = request.getParameter("phone");
-            String username = userBusiness.getCurrentLoggedUser();
-            String password = request.getParameter("password");
-            String checkbox = request.getParameter("disabilityPresented");
-            boolean disabilityPresented = checkboxToString(checkbox);
-
-            User user = new User(name, id, phone, username, password, disabilityPresented);
-
-            userBusiness.modifyUser(username, user);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/ModifyUser_Confirmation.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (ParseException | IOException | ServletException | java.text.ParseException ex) {
-            Logger.getLogger(UserManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
     }
 
     /**

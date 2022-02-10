@@ -60,7 +60,7 @@
                 <tr>
                     <td>
                         <font size="4" color="white">
-                        <a href="UserManagementServlet">Eliminar su Cuenta</a>
+                        <a href="ClientManagementServlet">Eliminar su Cuenta</a>
                         </font>
                     </td>
                     <td>

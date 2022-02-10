@@ -74,9 +74,9 @@ public class UserInfoServlet extends HttpServlet {
         try {
             UserBusiness userBusiness = new UserBusiness();
             User currentUser =userBusiness.getUser(userBusiness.getCurrentUser());
-            if(currentUser.getRole().equalsIgnoreCase("clerk")||currentUser.getRole().equalsIgnoreCase("admin")){
-            
-            }
+//            if(currentUser.getRole().equalsIgnoreCase("clerk")||currentUser.getRole().equalsIgnoreCase("admin")){
+//            
+//            }
             
             String name = request.getParameter("name");
             String id = request.getParameter("id");
@@ -92,17 +92,17 @@ public class UserInfoServlet extends HttpServlet {
             
             String success = userBusiness.insertUser(user);
             
-            if(currentUser.getRole().equalsIgnoreCase("clerk")){
-                if (success.equals("yes")) {
-                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
-                dispacher.forward(request, response);
-            } else {
-                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
-                response.setHeader("error", "Cliente duplicado");
-                dispacher.forward(request, response);
-            }
-            }
-            if(currentUser.getRole().equalsIgnoreCase("customer")){
+//            if(currentUser.getRole().equalsIgnoreCase("clerk")){
+//                if (success.equals("yes")) {
+//                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
+//                dispacher.forward(request, response);
+//            } else {
+//                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
+//                response.setHeader("error", "Cliente duplicado");
+//                dispacher.forward(request, response);
+//            }
+//            }
+//            if(currentUser.getRole().equalsIgnoreCase("customer")){
             if (success.equals("yes")) {
                 RequestDispatcher dispacher = request.getRequestDispatcher("/User/User_Confirmation.jsp");
                 dispacher.forward(request, response);
@@ -111,18 +111,20 @@ public class UserInfoServlet extends HttpServlet {
                 response.setHeader("error", "Cliente duplicado");
                 dispacher.forward(request, response);
             }
-            }
-            if(currentUser.getRole().equalsIgnoreCase("admin")){
-                if (success.equals("yes")) {
-                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
-                dispacher.forward(request, response);
-            } else {
-                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
-                response.setHeader("error", "Cliente duplicado");
-                dispacher.forward(request, response);
-            }
-            }
-        } catch (ServletException | IOException | org.json.simple.parser.ParseException | ParseException ex) {
+//            }
+//            if(currentUser.getRole().equalsIgnoreCase("admin")){
+//                if (success.equals("yes")) {
+//                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
+//                dispacher.forward(request, response);
+//            } else {
+//                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
+//                response.setHeader("error", "Cliente duplicado");
+//                dispacher.forward(request, response);
+//            }
+//            }
+        } catch (IOException | org.json.simple.parser.ParseException | ParseException ex) {
+            Logger.getLogger(UserInfoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
             Logger.getLogger(UserInfoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

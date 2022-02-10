@@ -26,8 +26,8 @@ import org.json.simple.parser.JSONParser;
 public class UserData {
 
     private static String currentUsername;
-    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Users.json";
-    // final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProjectAlpha\\Users.json";
+//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Users.json";
+     final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Users.json";
 
     public void insertUser(User user)
             throws IOException {

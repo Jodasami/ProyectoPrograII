@@ -80,7 +80,7 @@ public class VehicleInfoServlet extends HttpServlet {
             String color = request.getParameter("color");
             String brand = request.getParameter("brand");
             String model = request.getParameter("model");
-            String username = userBusiness.getCurrentLoggedUser();
+            String username = userBusiness.getCurrentUser();
             String vT = request.getParameter("vehicleType");
             // Obtener valor del Select
             //Temporal

@@ -5,37 +5,60 @@
         <servlet-class>Servlets.UserInfoServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VehicleInfoServlet</servlet-name>
-        <servlet-class>Servlets.VehicleInfoServlet</servlet-class>
+        <servlet-name>ClientManagementServlet</servlet-name>
+        <servlet-class>Servlets.ClientManagementServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserManagementServlet</servlet-name>
-        <servlet-class>Servlets.UserManagementServlet</servlet-class>
+        <servlet-name>AdminManagementServlet</servlet-name>
+        <servlet-class>Servlets.AdminManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRetrievalServlet</servlet-name>
+        <servlet-class>Servlets.AdminRetrievalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VehicleInfoServlet</servlet-name>
+        <servlet-class>Servlets.VehicleInfoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VehicleManagementServlet</servlet-name>
         <servlet-class>Servlets.VehicleManagementServlet</servlet-class>
     </servlet>
+  
     <servlet-mapping>
         <servlet-name>UserInfoServlet</servlet-name>
         <url-pattern>/UserInfoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManagementServlet</servlet-name>
+        <url-pattern>/AdminManagementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRetrievalServlet</servlet-name>
+        <url-pattern>/AdminRetrievalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientManagementServlet</servlet-name>
+        <url-pattern>/ClientManagementServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VehicleInfoServlet</servlet-name>
         <url-pattern>/VehicleInfoServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserManagementServlet</servlet-name>
-        <url-pattern>/UserManagementServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>VehicleManagementServlet</servlet-name>
         <url-pattern>/VehicleManagementServlet</url-pattern>
     </servlet-mapping>
+    
+    
+    
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
-   
+    <servlet-mapping>
+        <servlet-name>AdminManagementServlett</servlet-name>
+        <url-pattern>/AdminManagementServlett</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

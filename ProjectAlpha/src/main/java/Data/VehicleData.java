@@ -26,8 +26,8 @@ import org.json.simple.parser.JSONParser;
  */
 public class VehicleData {
 
-        final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProjectAlpha\\Vehicles.json";
-    //final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProjectAlpha\\Vehicles.json";
+//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProjectAlpha\\Vehicles.json";
+    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
 
     public void insertVehicle(Vehicle vehicle)
             throws IOException {

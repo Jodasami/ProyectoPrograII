@@ -25,7 +25,7 @@
         </i>
         <br><br><br>
     <center>
-        <form action="UserManagementServlet" method="post">
+        <form action="ClientManagementServlet" method="post">
 
             <font size="7" color="white">Datos Personales</font>
             <br>
