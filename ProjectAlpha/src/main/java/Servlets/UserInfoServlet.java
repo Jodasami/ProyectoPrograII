@@ -70,7 +70,14 @@ public class UserInfoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        
         try {
+            UserBusiness userBusiness = new UserBusiness();
+            User currentUser =userBusiness.getUser(userBusiness.getCurrentUser());
+            if(currentUser.getRole().equalsIgnoreCase("clerk")||currentUser.getRole().equalsIgnoreCase("admin")){
+            
+            }
+            
             String name = request.getParameter("name");
             String id = request.getParameter("id");
             String phone = request.getParameter("phone");
@@ -81,9 +88,21 @@ public class UserInfoServlet extends HttpServlet {
             String userRole="customer";
 
             User user = new User(name, id, phone, username, password, disabilityPresented,userRole);
-            UserBusiness userBusiness = new UserBusiness();
-
+            
+            
             String success = userBusiness.insertUser(user);
+            
+            if(currentUser.getRole().equalsIgnoreCase("clerk")){
+                if (success.equals("yes")) {
+                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
+                dispacher.forward(request, response);
+            } else {
+                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
+                response.setHeader("error", "Cliente duplicado");
+                dispacher.forward(request, response);
+            }
+            }
+            if(currentUser.getRole().equalsIgnoreCase("customer")){
             if (success.equals("yes")) {
                 RequestDispatcher dispacher = request.getRequestDispatcher("/User/User_Confirmation.jsp");
                 dispacher.forward(request, response);
@@ -91,6 +110,17 @@ public class UserInfoServlet extends HttpServlet {
                 RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
                 response.setHeader("error", "Cliente duplicado");
                 dispacher.forward(request, response);
+            }
+            }
+            if(currentUser.getRole().equalsIgnoreCase("admin")){
+                if (success.equals("yes")) {
+                RequestDispatcher dispacher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
+                dispacher.forward(request, response);
+            } else {
+                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Client.jsp");
+                response.setHeader("error", "Cliente duplicado");
+                dispacher.forward(request, response);
+            }
             }
         } catch (ServletException | IOException | org.json.simple.parser.ParseException | ParseException ex) {
             Logger.getLogger(UserInfoServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,21 +149,21 @@ public class UserInfoServlet extends HttpServlet {
             //verifica que se encontró el cliente y por ende, tiene un nombre
             if (!user.getName().equals("")&&user.getRole().equals("customer")) {
             //Aviso de que inicio sesión correctamente
-                userBusiness.setCurrentLoggedUser(username);
+                userBusiness.setCurrentUser(username);
                 RequestDispatcher dispacher = request.getRequestDispatcher("Client_Menu.jsp");
                 //response.setHeader("name", user.getName());
                 dispacher.forward(request, response);
             }
             if (!user.getName().equals("")&&user.getRole().equals("admin")) {
             //Aviso de que inicio sesión correctamente
-                userBusiness.setCurrentLoggedUser(username);
+                userBusiness.setCurrentUser(username);
                 RequestDispatcher dispacher = request.getRequestDispatcher("Administrator_Menu.jsp");
                 //response.setHeader("name", customer.getName());
                 dispacher.forward(request, response);
             }
             if (!user.getName().equals("")&&user.getRole().equals("clerk")) {
             //Aviso de que inicio sesión correctamente
-                userBusiness.setCurrentLoggedUser(username);
+                userBusiness.setCurrentUser(username);
                 RequestDispatcher dispacher = request.getRequestDispatcher("Clerk_Menu.jsp");
                 //response.setHeader("name", customer.getName());
                 dispacher.forward(request, response);

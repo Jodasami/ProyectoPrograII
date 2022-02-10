@@ -37,14 +37,11 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./AddVehicle_ParkingLot.jsp">Asignar Espacio de Vehículo</a>
+                        <a href="./Park_Vehicle_In_ParkingLot.jsp">Asignar Espacio de Vehículo</a>
                         </font>
                     </td>
-                    <td>
-                        <font size="4" color="white">
-                        <a href="./Register_Customer.jsp">Registar Usuario</a>
-                        </font>
-                    </td>
+                    
+                    
                 </tr>
                 <tr>
                     <td>
@@ -54,9 +51,10 @@
                     </td>
                     <td>
                         <font size="4" color="white">
-                        <a href="./Delete_Customer.jsp">Eliminar Usuario</a>
+                        <a href="./Register_Client.jsp">Registar Usuario</a>
                         </font>
                     </td>
+                    
                 </tr>
                 <tr>
                     <td> 
@@ -66,7 +64,7 @@
                     </td>
                     <td>
                         <font size="4" color="white">
-                        <a href="./Modify_Customer.jsp">Modificar Usuario</a>
+                        <a href="./ShowAll_Customers.jsp">Ver Usuarios Inscritos</a>
                         </font>
                     </td>
                 </tr>
@@ -76,11 +74,7 @@
                         <a href="./ShowAll_Vehicles.jsp">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
-                    <td>
-                        <font size="4" color="white">
-                        <a href="./ShowAll_Customers.jsp">Ver Usuarios Inscritos</a>
-                        </font>
-                    </td>
+                    
                 </tr>
             </tbody>
         </table>

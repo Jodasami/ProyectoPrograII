@@ -65,11 +65,11 @@ public class UserBusiness {
 
     }
     
-    public void setCurrentLoggedUser(String username){
-       userData.setCurrentLoggedUser(username);
+    public void setCurrentUser(String username){
+       userData.setCurrentUser(username);
     }
 
-     public String getCurrentLoggedUser(){
-        return userData.getCurrentLoggedUser();
+     public String getCurrentUser(){
+        return userData.getCurrentUser();
     }
 }

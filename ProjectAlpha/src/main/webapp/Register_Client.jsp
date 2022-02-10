@@ -133,9 +133,10 @@
             <input type="submit" value="Guardar cliente" />
             <!-- TODO: Espacio entre botones -->
             <input type="reset" value="Cancelar" />
-           
-
+            
         </form>
+        <br>
+            <input type="submit" value="Regresar al Menú Principal" name="login" size="50" onclick= "history.back()"/>
     </center>
 
 
