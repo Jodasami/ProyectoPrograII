@@ -53,7 +53,7 @@
 
         </table>
         <br><br><br>
-        <input type="button" value="Volver al menú principal" onclick= "history.back()" >
+        <input type="button" value="Volver al menú principal" onclick= "Clerk_Menu.jsp" >
     </center>
 
 </body>
