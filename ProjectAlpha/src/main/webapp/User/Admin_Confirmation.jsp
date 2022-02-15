@@ -17,7 +17,7 @@
         <br><br><br><br><br><br><br><br><br>
         <b><font size="7" color="white">Usuario Creado Con Éxito</font></b>
         <br>
-        <input type="button" value="Volver al Menú" onclick="window.location='Admin_Confirmation.jsp'" >
+        <input type="button" value="Volver al Menú" onclick="window.location='Administrator_Menu.jsp'" >
     </center>
 
 </body>

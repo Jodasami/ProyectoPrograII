@@ -6,6 +6,8 @@ package Servlets;
 
 import Business.UserBusiness;
 import Business.VehicleBusiness;
+import Data.UserData;
+import Data.VehicleData;
 import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,7 +78,7 @@ public class VehicleManagementServlet extends HttpServlet {
 
         try {
 
-            Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentUser());
+            Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(UserData.getCurrentUsername());
 
             vehicleBusiness.deleteVehicle(vehicle.getPlate());
 
@@ -102,9 +104,7 @@ public class VehicleManagementServlet extends HttpServlet {
         processRequest(request, response);
         try {
 
-            Vehicle vehicle;
-
-            vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerBusiness.getCurrentUser());
+            Vehicle vehicle = vehicleBusiness.getVehicle(VehicleData.getCurrentVehiclePlate());
 
             vehicleBusiness.modifyVehicle(vehicle.getPlate(), vehicle);
 

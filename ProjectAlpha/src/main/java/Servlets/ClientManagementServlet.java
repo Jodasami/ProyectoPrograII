@@ -6,6 +6,7 @@ package Servlets;
 
 import Business.UserBusiness;
 import Business.VehicleBusiness;
+import Data.UserData;
 import Domain.User;
 import Domain.Vehicle;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-@WebServlet(name = "UserManagementServlet", urlPatterns = {"/UserManagementServlet"})
+@WebServlet(name = "ClientManagementServlet", urlPatterns = {"/ClientManagementServlet"})
 public class ClientManagementServlet extends HttpServlet {
 
     /**
@@ -88,7 +89,7 @@ public class ClientManagementServlet extends HttpServlet {
 
         try{
 
-                String userUsername = userBusiness.getCurrentUser();
+                String userUsername = UserData.getCurrentUsername();
                 
                 //if para verificar si tiene un carro registrado y eliminarlo
         
@@ -123,7 +124,7 @@ public class ClientManagementServlet extends HttpServlet {
             String name = request.getParameter("name");
             String id = request.getParameter("id");
             String phone = request.getParameter("phone");
-            String username = userBusiness.getCurrentUser();
+            String username = UserData.getCurrentUsername();
             String password = request.getParameter("password");
             String checkbox = request.getParameter("disabilityPresented");
             boolean disabilityPresented = checkboxToString(checkbox);
@@ -132,23 +133,23 @@ public class ClientManagementServlet extends HttpServlet {
 
             userBusiness.modifyUser(username, user);
             
-            User getCustomerRole = userBusiness.getUser(username);
+            User currentLoggedUser = userBusiness.getUser(username);
             
-            if(getCustomerRole.getRole().equalsIgnoreCase("customer")){
+            if(currentLoggedUser.getRole().equalsIgnoreCase("customer")){
                 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/User/ModifyUser_Confirmation.jsp");
             dispatcher.forward(request, response);
             
             }
             
-             if(getCustomerRole.getRole().equalsIgnoreCase("clerk")){
+             if(currentLoggedUser.getRole().equalsIgnoreCase("clerk")){
                 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
             dispatcher.forward(request, response);
             
             }
              
-              if(getCustomerRole.getRole().equalsIgnoreCase("admin")){
+              if(currentLoggedUser.getRole().equalsIgnoreCase("admin")){
                 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
             dispatcher.forward(request, response);

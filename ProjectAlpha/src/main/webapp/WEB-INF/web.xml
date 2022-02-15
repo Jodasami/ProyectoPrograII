@@ -24,7 +24,18 @@
         <servlet-name>VehicleManagementServlet</servlet-name>
         <servlet-class>Servlets.VehicleManagementServlet</servlet-class>
     </servlet>
-  
+    <servlet>
+        <servlet-name>VehicleRetrievalServlet</servlet-name>
+        <servlet-class>Servlets.VehicleRetrievalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VehicleShowManagementServlet</servlet-name>
+        <servlet-class>Servlets.VehicleShowManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoleUserTypeServlet</servlet-name>
+        <servlet-class>Servlets.RoleUserTypeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserInfoServlet</servlet-name>
         <url-pattern>/UserInfoServlet</url-pattern>
@@ -49,10 +60,19 @@
         <servlet-name>VehicleManagementServlet</servlet-name>
         <url-pattern>/VehicleManagementServlet</url-pattern>
     </servlet-mapping>
-    
-    
-    
-    <welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>VehicleRetrievalServlet</servlet-name>
+        <url-pattern>/VehicleRetrievalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VehicleShowManagementServlet</servlet-name>
+        <url-pattern>/VehicleShowManagementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoleUserTypeServlet</servlet-name>
+        <url-pattern>/RoleUserTypeServlet</url-pattern>
+    </servlet-mapping>
+     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
     <session-config>

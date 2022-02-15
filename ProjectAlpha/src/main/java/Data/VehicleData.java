@@ -26,8 +26,9 @@ import org.json.simple.parser.JSONParser;
  */
 public class VehicleData {
 
-    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
-//    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+    private static String currentVehiclePlate;
+//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
 
     public void insertVehicle(Vehicle vehicle)
             throws IOException {
@@ -282,4 +283,17 @@ public class VehicleData {
         //Rename the new file to the filename the original file had.
         tempFile.renameTo(file);
     }
+
+    public static String getCurrentVehiclePlate() {
+        return currentVehiclePlate;
+    }
+
+    public static void setCurrentVehiclePlate(String currentVehiclePlate) {
+        VehicleData.currentVehiclePlate = currentVehiclePlate;
+    }
+
+   
+    
+    
+    
 }

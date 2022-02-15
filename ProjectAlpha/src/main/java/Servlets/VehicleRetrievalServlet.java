@@ -6,6 +6,7 @@ package Servlets;
 
 import Business.UserBusiness;
 import Business.VehicleBusiness;
+import Data.VehicleData;
 import Domain.User;
 import Domain.Vehicle;
 import java.io.IOException;
@@ -21,12 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "UserRetrievalServlet", urlPatterns = {"/UserRetrievalServlet"})
-public class AdminRetrievalServlet extends HttpServlet {
+/**
+ *
+ * @author Fabio
+ */
+@WebServlet(name = "VehicleRetrievalServlet", urlPatterns = {"/VehicleRetrievalServlet"})
+public class VehicleRetrievalServlet extends HttpServlet {
 
     UserBusiness userBusiness;
     VehicleBusiness vehicleBusiness;
-    LinkedList<User> users;
+    LinkedList<Vehicle> vehicles;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,10 +41,10 @@ public class AdminRetrievalServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet userRetrievalServlet</title>");
+            out.println("<title>Servlet vehicleRetrievalServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet userRetrievalServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet vehicleRetrievalServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +65,7 @@ public class AdminRetrievalServlet extends HttpServlet {
 
         userBusiness = new UserBusiness();
         vehicleBusiness = new VehicleBusiness();
-        users = new LinkedList<>();
+        vehicles = new LinkedList<>();
 
     }
 
@@ -69,25 +74,20 @@ public class AdminRetrievalServlet extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            String customerUsername = request.getParameter("userUsername");
-//            userBusiness.setCurrentUser(customerUsername);
+            String vehiclePlate = request.getParameter("vehiclePlate");
+//            userBusiness.setCurrentUser(vehiclePlate);
 
             if (action.equalsIgnoreCase("delete")) {
+                
+                vehicleBusiness.deleteVehicle(vehiclePlate);
 
-                //if para verificar si tiene un carro registrado y eliminarlo
-                Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerUsername);
-                if (vehicle == null) {
-                    userBusiness.deleteUser(customerUsername);
-                } else {
-                    vehicleBusiness.deleteVehicle(vehicle.getPlate());
-                    userBusiness.deleteUser(customerUsername);
-                }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Vehicles/DeleteVehicle_Confirmation.jsp");
                 dispatcher.forward(request, response);
 
             } else if (action.equalsIgnoreCase("edit")) {
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_User.jsp");
+                
+                VehicleData.setCurrentVehiclePlate(vehiclePlate);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_Vehicle.jsp");
                 dispatcher.forward(request, response);
 
             }

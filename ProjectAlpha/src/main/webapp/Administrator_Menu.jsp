@@ -30,6 +30,11 @@
                         Roles de Usuario
                         </font>
                     </th>
+                    <th>
+                        <font size="5" color="white">
+                        Vehículos
+                        </font>
+                    </th>
 
                 </tr>
             </thead>
@@ -40,6 +45,17 @@
                         <a href="./Create_ParkingLot.jsp">Crear un Parqueo</a>
                         </font>
                     </td>
+                    <td>
+                        <font size="4" color="white">
+                        <a href="AdminManagementServlet">Ver Usuarios y Roles</a>
+                        </font>
+                    </td>
+                    <td>
+                        <font size="4" color="white">
+                        <a href="Show_Vehicles.jsp">Vehículos Registrados</a>
+                        </font>
+                    </td>
+                </tr>
                 <tr>
                     <td> 
                         <font size="4" color="white">
@@ -47,55 +63,20 @@
                         </font>
                     </td>
                 </tr>
-            <td>
-                <font size="4" color="white">
-                <a href="./AssignRoles_Admin.jsp">Registrar Usuario</a>
-                </font>
-            </td>
-            </tr>
-            <tr>
-                <td>
-                    <font size="4" color="white">
-                    <a href="./DeleteSpace_ParkingLot.jsp">Eliminar Espacios Del Parqueo</a>
-                    </font>
-                </td>
-                <td>
-                    <font size="4" color="white">
-                    <a href="./DeleteRoles_Admin.jsp">Eliminar Roles</a>
-                    </font>
-                </td>
-            </tr>
-            <tr>
-                <td> 
-                    <font size="4" color="white">
-                    <a href="./Modify_ParkingLot">Modificar Parqueos</a>
-                    </font>
-                </td>
-                <td>
-                    <font size="4" color="white">
-                    <a href="./ModifyRoles_Admin.jsp">Modificar Roles</a>
-                    </font>
-                </td>
-            </tr>
-            <tr>
-                <td> 
-                    <font size="4" color="white">
-                    <a href="./Show_ParkingLot.jsp">Ver Parqueos y Espacios</a>
-                    </font>
-                </td>
-                <td>
-                    <font size="4" color="white">
-                    <a href="AdminManagementServlet">Ver Usuarios y Roles</a>
-                    </font>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-
-                </td>
-
-            </tr>
+                <tr>
+                    <td>
+                        <font size="4" color="white">
+                        <a href="./AssignRoles_Admin.jsp">Registrar Usuario</a>
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 
+                        <font size="4" color="white">
+                        <a href="./Show_ParkingLot.jsp">Ver Parqueos y Espacios</a>
+                        </font>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <br><br>
@@ -115,7 +96,7 @@
 
 
         <br><br>
-        <input type="button" value="Cerrar Sesión" onclick="window.location='Login.jsp'" >
+        <input type="button" value="Cerrar Sesión" onclick="window.location = 'Login.jsp'" >
     </center>
 </body>
 </html>

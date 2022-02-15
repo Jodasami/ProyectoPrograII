@@ -6,6 +6,7 @@ package Servlets;
 
 import Business.UserBusiness;
 import Business.VehicleBusiness;
+import Data.UserData;
 import Domain.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,7 +80,7 @@ public class AdminManagementServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            User user = userBusiness.getUser(userBusiness.getCurrentUser());
+            User user = userBusiness.getUser(UserData.getCurrentUsername());
             users = userBusiness.getAllUsers();
 
             if (user.getRole().equalsIgnoreCase("clerk")) {

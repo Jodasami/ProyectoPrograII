@@ -26,17 +26,25 @@ public class UserBusiness {
 
         String success = "";
 
-        //ToDo regla de negocio
-        if (userData.getUser(user.getUsername()).getUsername() == null) {
+        if (UserData.getCurrentUsername().equalsIgnoreCase("admin")) {
+            if (userData.getUser(user.getUsername()).getUsername() == null) {
 
-            userData.insertUser(user);
+                userData.insertUserAdmin(user);
 
-            success = "yes";
+                success = "yes";
 
+            }
+        } else {
+            if (userData.getUser(user.getUsername()).getUsername() == null) {
+
+                userData.insertUser(user);
+
+                success = "yes";
+
+            }
         }
 
         return success;
-
     }
 
     public LinkedList<User> getAllUsers() throws ParseException, java.text.ParseException, IOException {
@@ -47,13 +55,13 @@ public class UserBusiness {
 
         return userData.getUser(username, password);
     }
-    
+
     public User getUser(String username) throws ParseException, IOException, java.text.ParseException {
 
         return userData.getUser(username);
     }
-    
-     public void modifyUser(String userName, User user) throws IOException, ParseException, java.text.ParseException {
+
+    public void modifyUser(String userName, User user) throws IOException, ParseException, java.text.ParseException {
 
         userData.modifyUserFromFile(userName, user);
 
@@ -64,12 +72,5 @@ public class UserBusiness {
         userData.deleteUser(userUsername);
 
     }
-    
-    public void setCurrentUser(String username){
-       userData.setCurrentUser(username);
-    }
 
-     public String getCurrentUser(){
-        return userData.getCurrentUser();
-    }
 }

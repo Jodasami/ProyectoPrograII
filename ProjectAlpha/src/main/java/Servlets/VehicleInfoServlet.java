@@ -7,6 +7,7 @@ package Servlets;
 
 import Business.UserBusiness;
 import Business.VehicleBusiness;
+import Data.UserData;
 import Domain.User;
 import Domain.Vehicle;
 import Domain.VehicleType;
@@ -80,7 +81,7 @@ public class VehicleInfoServlet extends HttpServlet {
             String color = request.getParameter("color");
             String brand = request.getParameter("brand");
             String model = request.getParameter("model");
-            String username = userBusiness.getCurrentUser();
+            String username = UserData.getCurrentUsername();
             String vT = request.getParameter("vehicleType");
             // Obtener valor del Select
             //Temporal

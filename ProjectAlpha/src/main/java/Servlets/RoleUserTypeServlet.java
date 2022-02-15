@@ -5,12 +5,10 @@
 package Servlets;
 
 import Business.UserBusiness;
-import Business.VehicleBusiness;
+import Data.UserData;
 import Domain.User;
-import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -21,13 +19,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "UserRetrievalServlet", urlPatterns = {"/UserRetrievalServlet"})
-public class AdminRetrievalServlet extends HttpServlet {
+/**
+ *
+ * @author Fabio
+ */
+@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
+public class RoleUserTypeServlet extends HttpServlet {
 
-    UserBusiness userBusiness;
-    VehicleBusiness vehicleBusiness;
-    LinkedList<User> users;
+    UserBusiness userBusiness = new UserBusiness();
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -36,10 +45,10 @@ public class AdminRetrievalServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet userRetrievalServlet</title>");
+            out.println("<title>Servlet RoleUserTypeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet userRetrievalServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,46 +64,35 @@ public class AdminRetrievalServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void init()
-            throws ServletException {
-
-        userBusiness = new UserBusiness();
-        vehicleBusiness = new VehicleBusiness();
-        users = new LinkedList<>();
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
-            String action = request.getParameter("action");
-            String customerUsername = request.getParameter("userUsername");
-//            userBusiness.setCurrentUser(customerUsername);
+            //Valida redirección a la hora de eliminar un usuario
 
-            if (action.equalsIgnoreCase("delete")) {
+            User user = userBusiness.getUser(UserData.getCurrentUsername());
 
-                //if para verificar si tiene un carro registrado y eliminarlo
-                Vehicle vehicle = vehicleBusiness.getVehicleByCustomerUsername(customerUsername);
-                if (vehicle == null) {
-                    userBusiness.deleteUser(customerUsername);
-                } else {
-                    vehicleBusiness.deleteVehicle(vehicle.getPlate());
-                    userBusiness.deleteUser(customerUsername);
-                }
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
-                dispatcher.forward(request, response);
+            if (user.getRole().equalsIgnoreCase("admin")) {
 
-            } else if (action.equalsIgnoreCase("edit")) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Admin.jsp");
+                requestDispatcher.forward(request, response);
+            }
+            if (user.getRole().equalsIgnoreCase("clerk")) {
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_User.jsp");
-                dispatcher.forward(request, response);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Clerk.jsp");
+                requestDispatcher.forward(request, response);
+            }
+            if (user.getRole().equalsIgnoreCase("customer")) {
 
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Client_Menu.jsp");
+                requestDispatcher.forward(request, response);
             }
 
-        } catch (ParseException | IOException | ServletException | java.text.ParseException ex) {
-            Logger.getLogger(AdminRetrievalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RoleUserTypeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (java.text.ParseException ex) {
+            Logger.getLogger(RoleUserTypeServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     /**
@@ -108,6 +106,7 @@ public class AdminRetrievalServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Modificar
     }
 
     /**

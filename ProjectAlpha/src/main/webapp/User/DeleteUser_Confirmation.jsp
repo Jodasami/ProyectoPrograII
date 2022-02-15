@@ -17,7 +17,9 @@
         <br><br><br><br><br><br><br><br><br>
         <b><font size="7" color="white">Su Usuario ha sido Eliminado Con Éxito</font></b>
         <br>
-        <input type="button" value="Volver al Menú Principal" onclick="window.location='Login.jsp'" >
+          <form action="RoleUserTypeServlet" method="get">
+              <input type="submit" value="Regresar al Menú Principal">
+          </form>
     </center>
 
 </body>

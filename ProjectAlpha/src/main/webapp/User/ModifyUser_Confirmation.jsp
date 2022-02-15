@@ -17,7 +17,9 @@
         <br><br><br><br><br><br><br><br><br>
         <b><font size="7" color="white">Usuario Modificado Con Éxito</font></b>
         <br>
-        <input type="button" value="Aceptar" onclick="window.location='Client_Menu.jsp'" >
+        <form action="RoleUserTypeServlet" method="get">
+            <input type="submit" value="Regresar al Menú Principal">
+        </form>
     </center>
 
 </body>
