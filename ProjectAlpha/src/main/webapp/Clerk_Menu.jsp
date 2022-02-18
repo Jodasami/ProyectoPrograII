@@ -40,6 +40,11 @@
                         <a href="./Park_Vehicle_In_ParkingLot.jsp">Asignar Espacio de Vehículo</a>
                         </font>
                     </td>
+                    <td>
+                        <font size="4" color="white">
+                        <a href="./Register_Client.jsp">Registar Usuario</a>
+                        </font>
+                    </td>
 
 
                 </tr>
@@ -49,9 +54,10 @@
                         <a href="./RemoveAndCollect_Vehicle.jsp">Retirar Vehículo y Cobrar</a>
                         </font>
                     </td>
+
                     <td>
                         <font size="4" color="white">
-                        <a href="./Register_Client.jsp">Registar Usuario</a>
+                        <a href="AdminManagementServlet">Ver Usuarios Inscritos</a>
                         </font>
                     </td>
 
@@ -62,11 +68,7 @@
                         <a href="./Modify_Vehicle.jsp">Modificar Datos Del Vehículo</a>
                         </font>
                     </td>
-                    <td>
-                        <font size="4" color="white">
-                        <a href="AdminManagementServlet">Ver Usuarios Inscritos</a>
-                        </font>
-                    </td>
+
                 </tr>
                 <tr>
                     <td> 
@@ -74,7 +76,14 @@
                         <a href="./ShowAll_Vehicles.jsp">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
+                </tr>
 
+                <tr>
+                    <td> 
+                        <font size="4" color="white">
+                        <a href="VehicleShowManagementServlet">Ver Vehículos Registrados</a>
+                        </font>
+                    </td>
                 </tr>
             </tbody>
         </table>

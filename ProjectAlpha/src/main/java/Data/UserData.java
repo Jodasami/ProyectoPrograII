@@ -26,6 +26,7 @@ import org.json.simple.parser.JSONParser;
 public class UserData {
 
     private static String currentUsername;
+    private static String currentRoleUser;
 //    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Users.json";
     final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Users.json";
 
@@ -38,7 +39,7 @@ public class UserData {
         userObject.put("username", user.getUsername());
         userObject.put("password", user.getPassword());
         userObject.put("disabilityPresented", user.isDisabilityPresented());
-        userObject.put("role", "customer");
+        userObject.put("role", user.getRole());
         //true allows multiple insertions in the file
         try (FileWriter file = new FileWriter(JSONFILEPATH, true)) {
             file.write(userObject.toJSONString() + "\n");
@@ -46,21 +47,6 @@ public class UserData {
 
         //Input and Output operations: Happens when there is a failure during reading, writing, and searching file or directory operations.
         //Throws maneja la excepción pero sigue corriendo el programa aún saltando esa excepción.
-    }
-
-    public void insertUserAdmin(User user) throws IOException {
-        JSONObject userObject = new JSONObject();
-        userObject.put("name", user.getName());
-        userObject.put("id", user.getId());
-        userObject.put("phone", user.getPhone());
-        userObject.put("username", user.getUsername());
-        userObject.put("password", user.getPassword());
-        userObject.put("disabilityPresented", user.isDisabilityPresented());
-        userObject.put("role", user.getRole());
-        //true allows multiple insertions in the file
-        try (FileWriter file = new FileWriter(JSONFILEPATH, true)) {
-            file.write(userObject.toJSONString() + "\n");
-        }
     }
 
     public LinkedList<User> getAllUsers() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
@@ -269,4 +255,13 @@ public class UserData {
         UserData.currentUsername = currentUsername;
     }
 
+    public static String getCurrentRoleUser() {
+        return currentRoleUser;
+    }
+
+    public static void setCurrentRoleUser(String currentRoleUser) {
+        UserData.currentRoleUser = currentRoleUser;
+    }
+
+    
 }

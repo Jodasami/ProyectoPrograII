@@ -13,37 +13,38 @@ import java.util.ArrayList;
  */
 public class ParkingLot {
 
-    private int id;
+    private String id;
     private String name;
-    private String numberOfSpaces;
+    private int numberOfSpaces;
+    private int numberOfSpacesWithDisabiltyAdaptation;
     private ArrayList<Vehicle> vehicles;
     private Space[] spaces;
 
-    public ParkingLot(int id, String name, String numberOfSpaces, ArrayList<Vehicle> vehicles, Space[] spaces) {
+    public ParkingLot(String id, String name, int numberOfSpaces, int numberOfSpacesWithDisabiltyAdaptation, ArrayList<Vehicle> vehicles, Space[] spaces) {
         this.id = id;
         this.name = name;
         this.numberOfSpaces = numberOfSpaces;
+        this.numberOfSpacesWithDisabiltyAdaptation = numberOfSpacesWithDisabiltyAdaptation;
         this.vehicles = vehicles;
         this.spaces = spaces;
     }
 
+    public ParkingLot(String id, String name, int numberOfSpaces, int numberOfSpacesWithDisabiltyAdaptation) {
+        this.id = id;
+        this.name = name;
+        this.numberOfSpaces = numberOfSpaces;
+        this.numberOfSpacesWithDisabiltyAdaptation = numberOfSpacesWithDisabiltyAdaptation;
+    }
+    
     public ParkingLot() {
         
     }
 
-    public Space[] getSpaces() {
-        return spaces;
-    }
-
-    public void setSpaces(Space[] spaces) {
-        this.spaces = spaces;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -55,11 +56,11 @@ public class ParkingLot {
         this.name = name;
     }
 
-    public String getNumberOfSpaces() {
+    public int getNumberOfSpaces() {
         return numberOfSpaces;
     }
 
-    public void setNumberOfSpaces(String numberOfSpaces) {
+    public void setNumberOfSpaces(int numberOfSpaces) {
         this.numberOfSpaces = numberOfSpaces;
     }
 
@@ -70,5 +71,23 @@ public class ParkingLot {
     public void setVehicles(ArrayList<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
+
+    public Space[] getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(Space[] spaces) {
+        this.spaces = spaces;
+    }
+
+    public int getNumberOfSpacesWithDisabiltyAdaptation() {
+        return numberOfSpacesWithDisabiltyAdaptation;
+    }
+
+    public void setNumberOfSpacesWithDisabiltyAdaptation(int numberOfSpacesWithDisabiltyAdaptation) {
+        this.numberOfSpacesWithDisabiltyAdaptation = numberOfSpacesWithDisabiltyAdaptation;
+    }
+
+    
 
 }

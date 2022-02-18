@@ -26,24 +26,13 @@ public class UserBusiness {
 
         String success = "";
 
-        if (UserData.getCurrentUsername().equalsIgnoreCase("admin")) {
-            if (userData.getUser(user.getUsername()).getUsername() == null) {
+        if (userData.getUser(user.getUsername()).getUsername() == null) {
 
-                userData.insertUserAdmin(user);
+            userData.insertUser(user);
 
-                success = "yes";
+            success = "yes";
 
-            }
-        } else {
-            if (userData.getUser(user.getUsername()).getUsername() == null) {
-
-                userData.insertUser(user);
-
-                success = "yes";
-
-            }
         }
-
         return success;
     }
 

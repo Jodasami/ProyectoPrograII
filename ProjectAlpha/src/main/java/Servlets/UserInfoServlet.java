@@ -83,14 +83,13 @@ public class UserInfoServlet extends HttpServlet {
             String password = request.getParameter("password");
             String checkbox = request.getParameter("disabilityPresented");
             boolean disabilityPresented = checkboxToString(checkbox);
-             String userRole = "";
-            if(currentUser.getRole() == null || currentUser.getRole().equalsIgnoreCase("clerk")){
+            String userRole = "";
+            if (currentUser.getRole() == null || currentUser.getRole().equalsIgnoreCase("clerk") || currentUser.getRole().equalsIgnoreCase("customer")) {
                 userRole = "customer";
-            }
-            if(currentUser.getRole().equalsIgnoreCase("admin")){
+            } else if (currentUser.getRole().equalsIgnoreCase("admin")) {
                 userRole = request.getParameter("role");
             }
-            
+
             User user = new User(name, id, phone, username, password, disabilityPresented, userRole);
 
             String success = userBusiness.insertUser(user);
@@ -116,7 +115,7 @@ public class UserInfoServlet extends HttpServlet {
                         dispacher.forward(request, response);
                     }
                 }
-                 if (currentUser.getRole().equalsIgnoreCase("admin")) {
+                if (currentUser.getRole().equalsIgnoreCase("admin")) {
                     if (success.equals("yes")) {
                         RequestDispatcher dispacher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
                         dispacher.forward(request, response);
@@ -158,22 +157,25 @@ public class UserInfoServlet extends HttpServlet {
                 //Aviso de que inició sesión correctamente
 
                 UserData.setCurrentUsername(username);
+                UserData.setCurrentRoleUser(user.getRole());
                 RequestDispatcher dispacher = request.getRequestDispatcher("Client_Menu.jsp");
-                dispacher.forward(request, response);
-            }
-            if (user.getRole().equals("admin")) {
-                //Aviso de que inicio sesión correctamente
-
-                UserData.setCurrentUsername(username);
-                RequestDispatcher dispacher = request.getRequestDispatcher("Administrator_Menu.jsp");
-                //response.setHeader("name", customer.getName());
                 dispacher.forward(request, response);
             }
             if (user.getRole().equals("clerk")) {
                 //Aviso de que inicio sesión correctamente
 
                 UserData.setCurrentUsername(username);
+                UserData.setCurrentRoleUser(user.getRole());
                 RequestDispatcher dispacher = request.getRequestDispatcher("Clerk_Menu.jsp");
+                //response.setHeader("name", customer.getName());
+                dispacher.forward(request, response);
+            }
+            if (user.getRole().equals("admin")) {
+                //Aviso de que inicio sesión correctamente
+
+                UserData.setCurrentUsername(username);
+                UserData.setCurrentRoleUser(user.getRole());
+                RequestDispatcher dispacher = request.getRequestDispatcher("Administrator_Menu.jsp");
                 //response.setHeader("name", customer.getName());
                 dispacher.forward(request, response);
             }

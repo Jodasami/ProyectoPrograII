@@ -4,16 +4,17 @@
  */
 package Servlets;
 
-import Business.UserBusiness;
-import Data.UserData;
-import Domain.User;
+import Business.ParkingLotBusiness;
+import Domain.ParkingLot;
+import Domain.Space;
+import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +24,9 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
-public class RoleUserTypeServlet extends HttpServlet {
+public class ParkingLotManagementServlet extends HttpServlet {
 
-    UserBusiness userBusiness = new UserBusiness();
+    ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class RoleUserTypeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoleUserTypeServlet</title>");
+            out.println("<title>Servlet ParkingLotManagementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ParkingLotManagementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,24 +64,36 @@ public class RoleUserTypeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //Valida redirección a la hora de eliminar un usuario
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+        try {
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Admin.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            int numberOfSpaces = Integer.parseInt(request.getParameter("numberOfSpaces"));
+            int numberOfSpacesWithDisabiltyAdaptation = Integer.parseInt(request.getParameter("numberOfSpacesWithDisabiltyAdaptation"));
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Clerk.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
+            ArrayList<Vehicle> vehicles = new ArrayList<>();
+            Space[] spaces = new Space[numberOfSpaces];
+            spaces = parkingLotBusiness.configureSpaces(spaces, numberOfSpacesWithDisabiltyAdaptation);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-            requestDispatcher.forward(request, response);
+            ParkingLot parkingLot = new ParkingLot(id, name, numberOfSpaces, numberOfSpacesWithDisabiltyAdaptation, vehicles, spaces);
+
+            String success;
+
+            success = parkingLotBusiness.createParkingLot(parkingLot);
+
+            if (success.equals("yes")) {
+                RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Confirmation.jsp");
+                dispacher.forward(request, response);
+            } else {
+                RequestDispatcher dispacher = request.getRequestDispatcher("Create_ParkingLot.jsp");
+                response.setHeader("error", "Parqueo ya Existente");
+                dispacher.forward(request, response);
+            }
+
+        } catch (ParseException | java.text.ParseException | ServletException | IOException ex) {
+            Logger.getLogger(ParkingLotManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -97,7 +109,7 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Modificar
+        processRequest(request, response);
     }
 
     /**
