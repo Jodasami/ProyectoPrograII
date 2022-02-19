@@ -5,13 +5,10 @@
 package Servlets;
 
 import Business.ParkingLotBusiness;
-import Data.ParkingLotData;
 import Domain.ParkingLot;
-import Domain.Space;
-import Domain.Vehicle;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,9 +22,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-public class ParkingLotManagementServlet extends HttpServlet {
-
-    ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
+public class ParkingLotRetrievalServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +41,10 @@ public class ParkingLotManagementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ParkingLotManagementServlet</title>");
+            out.println("<title>Servlet ParkingLotRetrievalServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ParkingLotManagementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ParkingLotRetrievalServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,39 +60,31 @@ public class ParkingLotManagementServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //Action
         try {
+            String action = request.getParameter("action");
+            String parkingLotId = request.getParameter("parkingLotId");
 
-            String id = request.getParameter("id");
-            String name = request.getParameter("name");
-            int numberOfSpaces = Integer.parseInt(request.getParameter("numberOfSpaces"));
-            int numberOfSpacesWithDisabiltyAdaptation = Integer.parseInt(request.getParameter("numberOfSpacesWithDisabiltyAdaptation"));
+            ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
+            ParkingLot parkingLot = parkingLotBusiness.getParkingLot(parkingLotId);
+            
+            if (action.equalsIgnoreCase("delete")) {
 
-            ArrayList<Vehicle> vehicles = new ArrayList<>();
-            ParkingLotData.parkingLotsVehicles.add(Integer.parseInt(id), vehicles);
-            Space[] spaces = new Space[numberOfSpaces];
-            spaces = parkingLotBusiness.configureSpaces(spaces, numberOfSpacesWithDisabiltyAdaptation);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
+                dispatcher.forward(request, response);
 
-            ParkingLot parkingLot = new ParkingLot(id, name, numberOfSpaces, numberOfSpacesWithDisabiltyAdaptation, vehicles, spaces);
+            } else if (action.equalsIgnoreCase("edit")) {
 
-            String success;
+                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_User.jsp");
+                dispatcher.forward(request, response);
 
-            success = parkingLotBusiness.createParkingLot(parkingLot);
-
-            if (success.equals("yes")) {
-                RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Confirmation.jsp");
-                dispacher.forward(request, response);
-            } else {
-                RequestDispatcher dispacher = request.getRequestDispatcher("Create_ParkingLot.jsp");
-                response.setHeader("error", "Parqueo ya Existente");
-                dispacher.forward(request, response);
             }
 
-        } catch (ParseException | java.text.ParseException | ServletException | IOException ex) {
-            Logger.getLogger(ParkingLotManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException | IOException | ServletException  ex) {
+            Logger.getLogger(AdminRetrievalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -111,7 +98,7 @@ public class ParkingLotManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //Modify method
     }
 
     /**

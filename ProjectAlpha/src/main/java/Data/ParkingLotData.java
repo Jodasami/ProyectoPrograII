@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -28,16 +29,10 @@ import org.json.simple.parser.ParseException;
  */
 public class ParkingLotData {
 
-    //    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
-    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
+    //    final String JSONFILEPATH = "C:\\parkingLots\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
+    final String JSONFILEPATH = "C:\\parkingLots\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
 
-    public LinkedList<ParkingLot> parkingLots;
-    ArrayList<ArrayList> vehiclesOfParkingLot = new ArrayList<>();
-
-    public ParkingLotData() {
-
-        parkingLots = new LinkedList<>();
-    }
+    public static ArrayList<ArrayList<Vehicle>> parkingLotsVehicles;
 
     public ParkingLot registerParkingLot(ParkingLot parkingLot) throws IOException {
 
@@ -45,6 +40,7 @@ public class ParkingLotData {
         parkingLotObject.put("id", parkingLot.getId());
         parkingLotObject.put("name", parkingLot.getName());
         parkingLotObject.put("numberOfSpaces", parkingLot.getNumberOfSpaces());
+        parkingLotObject.put("numberOfSpacesWithDisabiltyAdaptation", parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
 
         try (FileWriter file = new FileWriter(JSONFILEPATH, true)) {
             file.write(parkingLotObject.toJSONString() + "\n");
@@ -83,7 +79,7 @@ public class ParkingLotData {
                     spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
 
                     //Obtenemos de un ArrayList que guarda todos los vehículos parqueados de cada parqueo, sus vehículos parqueados con el id del parqueo
-                    ArrayList<Vehicle> vehicles = vehiclesOfParkingLot.get(Integer.parseInt(id));
+                    ArrayList<Vehicle> vehicles = parkingLotsVehicles.get(Integer.parseInt(id));
 
                     parkingLot.setSpaces(spaces);
                     parkingLot.setVehicles(vehicles);
@@ -157,6 +153,126 @@ public class ParkingLotData {
 
     }
 
+    public LinkedList<ParkingLot> getAllparkingLots() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
+        LinkedList<ParkingLot> parkingLots = new LinkedList<>();
+        JSONObject jsonObject;
+
+        // This will reference one line at a time
+        String line = null;
+// FileReader reads text files in the default encoding.
+        FileReader fileReader = new FileReader(JSONFILEPATH);
+// Always wrap FileReader in BufferedReader.
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonObject = (JSONObject) new JSONParser().parse(line);
+
+            ParkingLot parkingLot = new ParkingLot();
+            parkingLot.setId(jsonObject.get("id").toString());
+            parkingLot.setName(jsonObject.get("name").toString());
+            parkingLot.setNumberOfSpaces(Integer.parseInt(jsonObject.get("numberOfSpaces").toString()));
+            parkingLot.setNumberOfSpacesWithDisabiltyAdaptation(Integer.parseInt(jsonObject.get("numberOfSpacesWithDisabiltyAdaptation").toString()));
+            System.out.println(parkingLot.toString());
+            parkingLots.add(parkingLot);
+        }
+// Always close files.
+        bufferedReader.close();
+
+// Or we could just do this:
+// ex.printStackTrace();
+        return parkingLots;
+
+    }
+
+    public void deleteUser(String id) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+
+        JSONObject userObject;
+
+        File file = new File(JSONFILEPATH);
+
+        //Construct the new file that will later be renamed to the original filename. 
+        File tempFile = new File("ParkingLots.json");
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(JSONFILEPATH));
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(tempFile))) {
+            String line = null;
+
+            //Read from the original file and write to the new
+            //unless content matches data to be removed.
+            while ((line = bufferedReader.readLine()) != null) {
+
+                userObject = (JSONObject) new JSONParser().parse(line);
+
+                if (!userObject.get("id").toString().equals(id)) {
+
+                    printWriter.println(line);
+                    printWriter.flush();
+                }
+            }
+
+            bufferedReader.close();
+        }
+
+        //Delete the original file
+        file.delete();
+
+        //Rename the new file to the filename the original file had.
+        tempFile.renameTo(file);
+
+    }
+
+    public void modifyUserFromFile(String id, ParkingLot parkingLot) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+
+        JSONObject parkingLotObject;
+
+        File file = new File(JSONFILEPATH);
+
+        //Construct the new file that will later be renamed to the original filename. 
+        File tempFile = new File("ParkingLots.json");
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(JSONFILEPATH));
+        PrintWriter printWriter = new PrintWriter(new FileWriter(tempFile));
+
+        String line = null;
+
+        //Read from the original file and write to the new 
+        //unless content matches data to be removed.
+        while ((line = bufferedReader.readLine()) != null) {
+
+            parkingLotObject = (JSONObject) new JSONParser().parse(line);
+
+            if (!parkingLotObject.get("id").toString().equals(id)) {
+
+                printWriter.println(line);
+                printWriter.flush();
+            } else {
+
+                parkingLotObject.put("id", parkingLot.getId());
+                parkingLotObject.put("name", parkingLot.getName());
+                parkingLotObject.put("numberOfSpaces", parkingLot.getNumberOfSpaces());
+                parkingLotObject.put("numberOfSpacesWithDisabiltyAdaptation", parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
+                Space[] spaces = new Space[parkingLot.getNumberOfSpaces()];
+                spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
+                parkingLot.setSpaces(spaces);
+                //Eliminamos los carros parqueados por aquello de que indique un número más pequeño que el anterior y dé error)
+                parkingLotsVehicles.remove(Integer.parseInt(parkingLot.getId()));
+                //Le asignamos una nueva lista de vehículos con el espacio del id del parqueo
+                ArrayList<Vehicle> vehicles = new ArrayList<>();
+                parkingLotsVehicles.add(Integer.parseInt(parkingLot.getId()), vehicles);
+
+                printWriter.println(parkingLotObject.toJSONString());
+            }
+        }
+
+        bufferedReader.close();
+        printWriter.close();
+
+        //Delete the original file
+        file.delete();
+
+        //Rename the new file to the filename the original file had.
+        tempFile.renameTo(file);
+    }
+
     public void removeVehicleFromParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
 
         ArrayList<Vehicle> vehiclesInParkingLot = parkingLot.getVehicles();
@@ -180,8 +296,8 @@ public class ParkingLotData {
         parkingLot.setVehicles(vehiclesInParkingLot);
 
     }
-    
-      public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
+
+    public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
 
         if (numberOfSpacesWithDisabilityAdaptation <= spaces.length) {
             for (int i = 0; i < numberOfSpacesWithDisabilityAdaptation; i++) {

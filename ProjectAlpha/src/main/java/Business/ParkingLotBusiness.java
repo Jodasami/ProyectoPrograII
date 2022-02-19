@@ -8,6 +8,7 @@ import Data.ParkingLotData;
 import Domain.ParkingLot;
 import Domain.Space;
 import Domain.VehicleType;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import org.json.simple.parser.ParseException;
@@ -33,6 +34,10 @@ public class ParkingLotBusiness {
         }
         return success;
     }
+    
+     public ParkingLot getParkingLot(String id) throws IOException, FileNotFoundException, ParseException{
+         return parkingLotData.getParkingLot(id);
+     }
     
     public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
         return parkingLotData.configureSpaces(spaces, numberOfSpacesWithDisabilityAdaptation);

@@ -22,7 +22,7 @@
 
             </marquee>
         </i>
-        <br><br><br><br><br>
+        <br><br><br><br>
     <center>
         <form action="ParkingLotManagementServlet" method="get">
 
