@@ -10,6 +10,7 @@ import Domain.Space;
 import Domain.VehicleType;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import org.json.simple.parser.ParseException;
 
@@ -42,5 +43,9 @@ public class ParkingLotBusiness {
     public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
         return parkingLotData.configureSpaces(spaces, numberOfSpacesWithDisabilityAdaptation);
     }
+    
+     public LinkedList<ParkingLot> getAllparkingLots() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
+         return parkingLotData.getAllparkingLots();
+     }
 
 }

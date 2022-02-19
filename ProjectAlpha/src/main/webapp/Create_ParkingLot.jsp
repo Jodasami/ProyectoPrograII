@@ -24,7 +24,7 @@
         </i>
         <br><br><br><br>
     <center>
-        <form action="ParkingLotManagementServlet" method="get">
+        <form action="ParkingLotManagementServlet" method="post">
 
             <font size="7" color="white">Datos del Parqueo</font>
             <br><br>

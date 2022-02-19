@@ -159,9 +159,9 @@ public class ParkingLotData {
 
         // This will reference one line at a time
         String line = null;
-// FileReader reads text files in the default encoding.
+        // FileReader reads text files in the default encoding.
         FileReader fileReader = new FileReader(JSONFILEPATH);
-// Always wrap FileReader in BufferedReader.
+        // Always wrap FileReader in BufferedReader.
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         while ((line = bufferedReader.readLine()) != null) {
             jsonObject = (JSONObject) new JSONParser().parse(line);
@@ -183,7 +183,7 @@ public class ParkingLotData {
 
     }
 
-    public void deleteUser(String id) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+    public void deleteParkingLot(String id) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 
         JSONObject userObject;
 
@@ -208,6 +208,8 @@ public class ParkingLotData {
                     printWriter.flush();
                 }
             }
+            parkingLotsVehicles.remove(Integer.parseInt(id));
+            
 
             bufferedReader.close();
         }
@@ -220,7 +222,7 @@ public class ParkingLotData {
 
     }
 
-    public void modifyUserFromFile(String id, ParkingLot parkingLot) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+    public void modifyParkingLot(String id, ParkingLot parkingLot) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 
         JSONObject parkingLotObject;
 

@@ -37,7 +37,7 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./Park_Vehicle_In_ParkingLot.jsp">Asignar Espacio de Vehículo</a>
+                        <a href="./Park_Vehicle_In_ParkingLot.jsp">Asignar Espacio a un Vehículo</a>
                         </font>
                     </td>
                     <td>

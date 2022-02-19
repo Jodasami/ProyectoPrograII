@@ -59,7 +59,7 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./AssignSpace_ParkingLot.jsp">Asignar Espacios Del Parqueo</a>
+                        <a href="./AssignSpace_ParkingLot.jsp">Asignar un Espacio a un Cliente</a>
                         </font>
                     </td>
                 </tr>
@@ -73,7 +73,7 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./Show_ParkingLot.jsp">Ver Parqueos y Espacios</a>
+                        <a href="ParkingLotManagementServlet">Ver Parqueos y Espacios</a>
                         </font>
                     </td>
                 </tr>
