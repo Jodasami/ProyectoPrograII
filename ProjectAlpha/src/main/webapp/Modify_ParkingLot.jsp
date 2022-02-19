@@ -23,6 +23,8 @@
             <font size="7" color="white">Datos del Parqueo</font>
             <br>
             <font size="4" color="white">*Recuerde que el Número del Parqueo no se puede Modificar*</font>
+             <br>
+            <font size="4" color="white">*Los Vehículos ya Parqueados se Eliminaran de este Parqueo*</font>
             <br><br>
 
             <font size="5" color="white"><b>
