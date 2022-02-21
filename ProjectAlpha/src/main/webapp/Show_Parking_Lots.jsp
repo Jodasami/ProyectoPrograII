@@ -14,7 +14,7 @@
     <body background="Images/BG.png">
 
         <i>
-            <marquee  <b><font color="white" size="8">Lista de Vehículos en el Sistema </font></b>
+            <marquee  <b><font color="white" size="8">Lista de Parqueos en el Sistema </font></b>
             </marquee>
         </i>
 

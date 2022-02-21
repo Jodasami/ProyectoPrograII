@@ -74,7 +74,7 @@ public class ParkingLotManagementServlet extends HttpServlet {
             
             parkingLots = parkingLotBusiness.getAllparkingLots();
                    
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_ParkingLots.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
             request.setAttribute("parkingLots", parkingLots);
             requestDispatcher.forward(request, response);
             
@@ -119,7 +119,7 @@ public class ParkingLotManagementServlet extends HttpServlet {
                 RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Confirmation.jsp");
                 dispacher.forward(request, response);
             } else {
-                RequestDispatcher dispacher = request.getRequestDispatcher("Create_ParkingLot.jsp");
+                RequestDispatcher dispacher = request.getRequestDispatcher("Create_Parking_Lot.jsp");
                 response.setHeader("error", "Parqueo ya Existente");
                 dispacher.forward(request, response);
             }

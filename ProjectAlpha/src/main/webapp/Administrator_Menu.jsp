@@ -42,7 +42,7 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./Create_ParkingLot.jsp">Crear un Parqueo</a>
+                        <a href="./Create_Parking_Lot.jsp">Crear un Parqueo</a>
                         </font>
                     </td>
                     <td>
@@ -66,7 +66,7 @@
                 <tr>
                     <td>
                         <font size="4" color="white">
-                        <a href="./AssignRoles_Admin.jsp">Registrar Usuario</a>
+                        <a href="./Register_User_Admin.jsp">Registrar Usuario</a>
                         </font>
                     </td>
                 </tr>
