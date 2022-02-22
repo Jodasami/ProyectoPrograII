@@ -40,6 +40,14 @@ public class ParkingLotBusiness {
         return parkingLotData.getParkingLot(id);
     }
 
+    public void modifyParkingLot(String id, ParkingLot parkingLot) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+        parkingLotData.modifyParkingLot(id, parkingLot);
+    }
+
+    public void deleteParkingLot(String id) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+        parkingLotData.deleteParkingLot(id);
+    }
+
     public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, int motorcycle, int ligthVehicles, int heavyVehicles, int bike, int other) {
         return parkingLotData.configureSpaces(spaces, numberOfSpacesWithDisabilityAdaptation, motorcycle, ligthVehicles, heavyVehicles, bike, other);
     }

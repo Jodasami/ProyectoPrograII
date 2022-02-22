@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,17 +30,17 @@
             <td bgcolor="#000000" ><font size="5" color="white"><b>Número de Espacios del Parqueo</b></font> </td>
             <td bgcolor="#000000" ><font size="5" color="white"><b>Número de Espacios para Personas con Discapacidad</b></font> </td>
 
-            <c:forEach items="${parkingLots}" var="currentVehicle" varStatus="counter">
+            <c:forEach items="${parkingLots}" var="currentParkingLot" varStatus="counter">
                 <c:set var="color" value="${counter.index%2==0? '#2666CF' : '#F5F2E7'}"/>
                 <tr bgcolor= "${color}">
 
-                    <td><font size="5"><c:out value="${currentVehicle.plate}"/> </font> </td>
-                    <td><font size="5"><c:out value="${currentVehicle.color}"/></font></td>
-                    <td><font size="5"><c:out value="${currentVehicle.brand}"/></font></td>
-                    <td><font size="5"><c:out value="${currentVehicle.model}"/></font></td>
+                    <td><font size="5"><c:out value="${currentParkingLot.id}"/> </font> </td>
+                    <td><font size="5"><c:out value="${currentParkingLot.name}"/></font></td>
+                    <td><font size="5"><c:out value="${currentParkingLot.numberOfSpaces}"/></font></td>
+                    <td><font size="5"><c:out value="${currentParkingLot.numberOfSpacesWithDisabiltyAdaptation}"/></font></td>
 
-                    <td><font size="5"><a href="VehicleRetrievalServlet?action=edit&vehiclePlate=<c:out value="${currentVehicle.plate}"/>">Modificar Vehículo</a></font>
-                        <font size="5"><a href="VehicleRetrievalServlet?action=delete&vehiclePlate=<c:out value="${currentVehicle.plate}"/>">Eliminar Vehículo</a></font></td>
+                    <td><font size="5"><a href="ParkingLotRetrievalServlet?action=edit&parkingLotId=<c:out value="${currentParkingLot.id}"/>">Modificar Parqueo</a></font>
+                        <font size="5"><a href="ParkingLotRetrievalServlet?action=delete&parkingLotId=<c:out value="${currentParkingLot.id}"/>">Eliminar Parqueo</a></font></td>
                 </tr>
             </c:forEach>
 
