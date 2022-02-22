@@ -35,17 +35,21 @@ public class ParkingLotBusiness {
         }
         return success;
     }
-    
-     public ParkingLot getParkingLot(String id) throws IOException, FileNotFoundException, ParseException{
-         return parkingLotData.getParkingLot(id);
-     }
-    
-    public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
-        return parkingLotData.configureSpaces(spaces, numberOfSpacesWithDisabilityAdaptation);
+
+    public ParkingLot getParkingLot(String id) throws IOException, FileNotFoundException, ParseException {
+        return parkingLotData.getParkingLot(id);
     }
-    
-     public LinkedList<ParkingLot> getAllparkingLots() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
-         return parkingLotData.getAllparkingLots();
-     }
+
+    public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, int motorcycle, int ligthVehicles, int heavyVehicles, int bike, int other) {
+        return parkingLotData.configureSpaces(spaces, numberOfSpacesWithDisabilityAdaptation, motorcycle, ligthVehicles, heavyVehicles, bike, other);
+    }
+
+    public Space[] configureSpacesForDisabiltityAdaptation(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, String vehicleTypeDisability) {
+        return parkingLotData.configureSpacesForDisabiltityAdaptation(spaces, numberOfSpacesWithDisabilityAdaptation, vehicleTypeDisability);
+    }
+
+    public LinkedList<ParkingLot> getAllparkingLots() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
+        return parkingLotData.getAllparkingLots();
+    }
 
 }

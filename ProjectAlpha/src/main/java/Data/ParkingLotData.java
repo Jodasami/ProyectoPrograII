@@ -33,6 +33,7 @@ public class ParkingLotData {
     final String JSONFILEPATH = "C:\\parkingLots\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
 
     public static ArrayList<ArrayList<Vehicle>> parkingLotsVehicles;
+    public static ArrayList<Space[]> spacesParkingLots;
 
     public ParkingLot registerParkingLot(ParkingLot parkingLot) throws IOException {
 
@@ -75,11 +76,10 @@ public class ParkingLotData {
                     parkingLot.setName(jsonObject.get("name").toString());
                     parkingLot.setNumberOfSpaces(Integer.parseInt(jsonObject.get("numberOfSpaces").toString()));
                     parkingLot.setNumberOfSpacesWithDisabiltyAdaptation(Integer.parseInt(jsonObject.get("numberOfSpacesWithDisabiltyAdaptation").toString()));
-                    Space[] spaces = new Space[parkingLot.getNumberOfSpaces()];
-                    spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
 
                     //Obtenemos de un ArrayList que guarda todos los vehículos parqueados de cada parqueo, sus vehículos parqueados con el id del parqueo
                     ArrayList<Vehicle> vehicles = parkingLotsVehicles.get(Integer.parseInt(id));
+                    Space[] spaces = spacesParkingLots.get(Integer.parseInt(id));
 
                     parkingLot.setSpaces(spaces);
                     parkingLot.setVehicles(vehicles);
@@ -209,7 +209,6 @@ public class ParkingLotData {
                 }
             }
             parkingLotsVehicles.remove(Integer.parseInt(id));
-            
 
             bufferedReader.close();
         }
@@ -253,7 +252,8 @@ public class ParkingLotData {
                 parkingLotObject.put("numberOfSpaces", parkingLot.getNumberOfSpaces());
                 parkingLotObject.put("numberOfSpacesWithDisabiltyAdaptation", parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
                 Space[] spaces = new Space[parkingLot.getNumberOfSpaces()];
-                spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
+                //Almacenar todos los arreglos de spaces ya configurados y obtenerlo
+//                spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
                 parkingLot.setSpaces(spaces);
                 //Eliminamos los carros parqueados por aquello de que indique un número más pequeño que el anterior y dé error)
                 parkingLotsVehicles.remove(Integer.parseInt(parkingLot.getId()));
@@ -299,25 +299,16 @@ public class ParkingLotData {
 
     }
 
-    public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation) {
+    public Space[] configureSpacesForDisabiltityAdaptation(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, String vehicleTypeDisability) {
 
         if (numberOfSpacesWithDisabilityAdaptation <= spaces.length) {
+
             for (int i = 0; i < numberOfSpacesWithDisabilityAdaptation; i++) {
                 Space space = new Space();
 
                 space.setId(i);
                 space.setDisabilityAdaptation(true);
-                space.setVehicleType(configureVehicleTypeOfSpaces(i, true));
-
-                spaces[i] = space;
-            }
-
-            for (int i = numberOfSpacesWithDisabilityAdaptation; i < spaces.length; i++) {
-                Space space = new Space();
-
-                space.setId(i);
-                space.setDisabilityAdaptation(false);
-                space.setVehicleType(configureVehicleTypeOfSpaces(i, false));
+                space.setVehicleType(configureVehicleTypeOfSpaces(vehicleTypeDisability));
 
                 spaces[i] = space;
             }
@@ -330,9 +321,68 @@ public class ParkingLotData {
         return spaces;
     }
 
-    private VehicleType configureVehicleTypeOfSpaces(int position, boolean disabilityPresented) {
+    public Space[] configureSpaces(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, int motorcycle, int ligthVehicles, int heavyVehicles, int bike, int other) {
 
-        String[] types = {"Tipos de vehículo", "1)moto", "2)liviano", "3)pesado", "4)bicicleta", "5)otro"};
+        for (int i = numberOfSpacesWithDisabilityAdaptation; i < spaces.length; i++) {
+            Space space = new Space();
+
+            while (motorcycle != 0) {
+
+                space.setId(i);
+                space.setDisabilityAdaptation(false);
+                space.setVehicleType(configureVehicleTypeOfSpaces("motorcycle"));
+
+                spaces[i] = space;
+                motorcycle--;
+            }
+
+            while (ligthVehicles != 0) {
+
+                space.setId(i);
+                space.setDisabilityAdaptation(false);
+                space.setVehicleType(configureVehicleTypeOfSpaces("ligthVehicles"));
+
+                spaces[i] = space;
+                ligthVehicles--;
+            }
+
+            while (heavyVehicles != 0) {
+
+                space.setId(i);
+                space.setDisabilityAdaptation(false);
+                space.setVehicleType(configureVehicleTypeOfSpaces("heavyVehicles"));
+
+                spaces[i] = space;
+                heavyVehicles--;
+            }
+
+            while (bike != 0) {
+
+                space.setId(i);
+                space.setDisabilityAdaptation(false);
+                space.setVehicleType(configureVehicleTypeOfSpaces("bike"));
+
+                spaces[i] = space;
+                bike--;
+            }
+
+            while (other != 0) {
+
+                space.setId(i);
+                space.setDisabilityAdaptation(false);
+                space.setVehicleType(configureVehicleTypeOfSpaces("other"));
+
+                spaces[i] = space;
+                other--;
+            }
+        }
+
+        return spaces;
+    }
+
+    private VehicleType configureVehicleTypeOfSpaces(String vT) {
+
+        String[] types = {"Tipos de vehículo", "motorcycle", "ligthVehicles", "heavyVehicles", "bike", "other"};
         byte[] tires = {0, 2, 4, 8, 12, -1};
 
         String allTypes = "";
@@ -343,12 +393,17 @@ public class ParkingLotData {
         VehicleType vehicleType = new VehicleType();
 
         byte typeNumber;
-        typeNumber = Byte.parseByte(JOptionPane.showInputDialog(allTypes + "\n" + "Ingrese el número del tipo de vehículo del espacio # " + position + " ¿Discapacidad?=" + (disabilityPresented ? "Sí" : "No")));
+        typeNumber = Byte.parseByte(vT);
         vehicleType.setId(typeNumber);
         vehicleType.setDescription(types[typeNumber]);
         vehicleType.setNumberOfTires(tires[typeNumber]);
 
         return vehicleType;
+    }
+
+    public static void createParkingLotItems() {
+        parkingLotsVehicles = new ArrayList<>();
+        spacesParkingLots = new ArrayList<>();
     }
 
 }

@@ -40,23 +40,6 @@ public class ParkingLotManagementServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ParkingLotManagementServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ParkingLotManagementServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -69,15 +52,15 @@ public class ParkingLotManagementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         //Viene el href de ShowParkingLots para traer los datos
-        
-         try {
-            
+
+        try {
+
             parkingLots = parkingLotBusiness.getAllparkingLots();
-                   
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
             request.setAttribute("parkingLots", parkingLots);
             requestDispatcher.forward(request, response);
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(VehicleShowManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServletException | IOException ex) {
@@ -96,27 +79,28 @@ public class ParkingLotManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         try {
+        try {
 
             String id = request.getParameter("id");
             String name = request.getParameter("name");
             int numberOfSpaces = Integer.parseInt(request.getParameter("numberOfSpaces"));
             int numberOfSpacesWithDisabiltyAdaptation = Integer.parseInt(request.getParameter("numberOfSpacesWithDisabiltyAdaptation"));
-
+            
+            ParkingLot parkingLot = new ParkingLot(id, name, numberOfSpaces, numberOfSpacesWithDisabiltyAdaptation);
+           
+            if(ParkingLotData.parkingLotsVehicles.isEmpty()){
+                ParkingLotData.createParkingLotItems();
+            }
             ArrayList<Vehicle> vehicles = new ArrayList<>();
             ParkingLotData.parkingLotsVehicles.add(Integer.parseInt(id), vehicles);
-            Space[] spaces = new Space[numberOfSpaces];
-            spaces = parkingLotBusiness.configureSpaces(spaces, numberOfSpacesWithDisabiltyAdaptation);
-
-            ParkingLot parkingLot = new ParkingLot(id, name, numberOfSpaces, numberOfSpacesWithDisabiltyAdaptation, vehicles, spaces);
 
             String success;
 
             success = parkingLotBusiness.createParkingLot(parkingLot);
 
             if (success.equals("yes")) {
-                RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Confirmation.jsp");
+                request.setAttribute("id", parkingLot.getId());
+                RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Basic.jsp");
                 dispacher.forward(request, response);
             } else {
                 RequestDispatcher dispacher = request.getRequestDispatcher("Create_Parking_Lot.jsp");

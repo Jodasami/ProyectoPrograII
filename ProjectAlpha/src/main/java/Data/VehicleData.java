@@ -167,35 +167,38 @@ public class VehicleData {
         // This will reference one line at a time
         String line = null;
 
-        // FileReader reads text files in the default encoding.
-        FileReader fileReader = new FileReader(JSONFILEPATH);
+        if (new File(JSONFILEPATH).exists()) {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = new FileReader(JSONFILEPATH);
 
-        // Always wrap FileReader in BufferedReader.
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        while ((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
 
-            jsonObject = (JSONObject) new JSONParser().parse(line);
-            if (jsonObject.get("owner") != null) {
-                if (jsonObject.get("owner").toString().equals(username)) {
-                    vehicle.setPlate(jsonObject.get("plate").toString());
-                    vehicle.setColor(jsonObject.get("color").toString());
-                    vehicle.setBrand(jsonObject.get("brand").toString());
-                    vehicle.setModel(jsonObject.get("model").toString());
-                    vehicle.setOwner(vehicle.getOwner());
-                    vehicle.setVehicleType(vehicle.getVehicleType());
+                jsonObject = (JSONObject) new JSONParser().parse(line);
+                if (jsonObject.get("owner") != null) {
+                    if (jsonObject.get("owner").toString().equals(username)) {
+                        vehicle.setPlate(jsonObject.get("plate").toString());
+                        vehicle.setColor(jsonObject.get("color").toString());
+                        vehicle.setBrand(jsonObject.get("brand").toString());
+                        vehicle.setModel(jsonObject.get("model").toString());
+                        vehicle.setOwner(vehicle.getOwner());
+                        vehicle.setVehicleType(vehicle.getVehicleType());
 
+                    } else {
+                        System.out.println("");
+                    }
                 } else {
-                    System.out.println("");
+                    vehicle = null;
+                    break;
                 }
-            } else {
-                vehicle = null;
-                break;
             }
-
+            // Always close files.
+            bufferedReader.close();
+        } else {
+            vehicle = null;
         }
-        // Always close files.
-        bufferedReader.close();
 
         return vehicle;
     }
@@ -292,8 +295,4 @@ public class VehicleData {
         VehicleData.currentVehiclePlate = currentVehiclePlate;
     }
 
-   
-    
-    
-    
 }

@@ -1,13 +1,13 @@
 <%-- 
-    Document   : Parking_Lot_Confirmation
-    Created on : Feb 21, 2022, 7:55:32 PM
+    Document   : UserConfirmation
+    Created on : Jan 27, 2022, 12:35:38 AM
     Author     : Fabio
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-     <head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Confirmación</title>
     </head>
@@ -15,9 +15,9 @@
     <center>
 
         <br><br><br><br><br><br><br><br><br>
-        <b><font size="7" color="white">Parqueo Configurado con Éxito</font></b>
+        <b><font size="7" color="white">Parqueo Creado Con Éxito</font></b>
         <br>
-        <input type="button" value="Continuar" onclick="window.location='Administrator_Menu.jsp'" >
+        <input type="button" value="Continuar" onclick="window.location='Spaces_Type.jsp'" >
     </center>
 
 </body>

@@ -59,7 +59,7 @@
 
                     </tr>
 
-                    
+
 
                     <tr>
 
@@ -76,7 +76,7 @@
                         </td>
 
                     </tr>
-                   
+
                     <tr>
 
                         <td>
@@ -92,19 +92,19 @@
                         </td>
 
                     </tr>
-
+                    
                 </table>
             </b> 
             </font>
             <br>
-            
+
             <input type="submit" value="Guardar Parqueo" />
             <!-- TODO: Espacio entre botones -->
             <input type="reset" value="Cancelar" />
-            
+
         </form>
         <br>
-            <input type="submit" value="Volver" size="50" onclick= "history.back()"/>
+        <input type="submit" value="Volver" size="50" onclick= "history.back()"/>
     </center>
 
 

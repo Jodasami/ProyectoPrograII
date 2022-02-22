@@ -63,14 +63,6 @@
                         <a href="ClientManagementServlet">Eliminar su Cuenta</a>
                         </font>
                     </td>
-                    <td>
-                        <form action="UserManagementServlet" method="get">
-                            <font size="4" color="white">
-                            <a href="">Retirar su Vehículo</a>
-                            </font>
-                        </form>
-
-                    </td>
                 </tr>
             </tbody>
         </table>

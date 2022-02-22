@@ -44,6 +44,10 @@
         <servlet-name>ParkingLotRetrievalServlet</servlet-name>
         <servlet-class>Servlets.ParkingLotRetrievalServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SpacesTypeServlet</servlet-name>
+        <servlet-class>Servlets.SpacesTypeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserInfoServlet</servlet-name>
         <url-pattern>/UserInfoServlet</url-pattern>
@@ -84,13 +88,17 @@
         <servlet-name>ParkingLotManagementServlet</servlet-name>
         <url-pattern>/ParkingLotManagementServlet</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>Login.jsp</welcome-file>
-    </welcome-file-list>
     <servlet-mapping>
         <servlet-name>ParkingLotRetrievalServlet</servlet-name>
         <url-pattern>/ParkingLotRetrievalServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SpacesTypeServlet</servlet-name>
+        <url-pattern>/SpacesTypeServlet</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>Login.jsp</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30
