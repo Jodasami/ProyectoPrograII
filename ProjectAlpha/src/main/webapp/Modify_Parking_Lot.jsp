@@ -7,6 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
+    <%
+        String id = (String) request.getAttribute("id");
+
+    %>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificación de Parqueos</title>
@@ -23,14 +29,14 @@
             <font size="7" color="white">Datos del Parqueo</font>
             <br>
             <font size="4" color="white">*Recuerde que el Número del Parqueo no se puede Modificar*</font>
-             <br>
+            <br>
             <font size="4" color="white">*Los Vehículos ya Parqueados se Eliminaran de este Parqueo*</font>
             <br><br>
 
             <font size="5" color="white"><b>
 
                 <table cellpadding="5">
-                    
+
                     <tr>
 
                         <td>
@@ -84,7 +90,9 @@
             </font>
             <br>
 
-            <input type="submit" value="Guardar Parqueo" />
+            <input type="hidden" name="id" value=<%=id%>>
+
+            <input type="submit" value="Continuar" />
             <!-- TODO: Espacio entre botones -->
             <input type="reset" value="Cancelar" />
 

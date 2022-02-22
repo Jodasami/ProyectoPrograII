@@ -79,6 +79,7 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
 
             } else if (action.equalsIgnoreCase("edit")) {
 
+                request.setAttribute("id", parkingLot.getId());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_Parking_Lot.jsp");
                 dispatcher.forward(request, response);
 
@@ -102,8 +103,8 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String id = request.getParameter("name");
-            String name = request.getParameter("id");
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
             String numberOfSpaces = request.getParameter("numberOfSpaces");
             String numberOfSpacesWithDisabiltyAdaptation = request.getParameter("numberOfSpacesWithDisabiltyAdaptation");
 
@@ -112,6 +113,7 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
             ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
             parkingLotBusiness.modifyParkingLot(id, parkingLot);
 
+            request.setAttribute("id", parkingLot.getId());
             RequestDispatcher dispatcher = request.getRequestDispatcher("Spaces_Type.jsp");
             dispatcher.forward(request, response);
 
