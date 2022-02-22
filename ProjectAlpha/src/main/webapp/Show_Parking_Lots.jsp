@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado de Parqueos</title>
     </head>
+    <center>
     <body background="Images/BG.png">
 
         <i>
@@ -21,7 +22,7 @@
 
         <br><br><br>
 
-    <center>
+    
         <br><br>
         <table border="2">
 
@@ -48,7 +49,7 @@
 
         </table>
         <br><br><br>
-        <input type="button" value="Volver al menú principal" onclick= "history.back()" >
+        <input type="button" value="Volver al menú principal" onclick="window.location = 'Administrator_Menu.jsp'" >
     </center>
 
 </body>
