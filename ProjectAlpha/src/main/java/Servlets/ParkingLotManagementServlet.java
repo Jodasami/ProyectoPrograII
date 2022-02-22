@@ -85,14 +85,14 @@ public class ParkingLotManagementServlet extends HttpServlet {
             String name = request.getParameter("name");
             int numberOfSpaces = Integer.parseInt(request.getParameter("numberOfSpaces"));
             int numberOfSpacesWithDisabiltyAdaptation = Integer.parseInt(request.getParameter("numberOfSpacesWithDisabiltyAdaptation"));
-            
+
             ParkingLot parkingLot = new ParkingLot(id, name, numberOfSpaces, numberOfSpacesWithDisabiltyAdaptation);
-           
-            if(ParkingLotData.parkingLotsVehicles.isEmpty()){
+
+            if (ParkingLotData.parkingLotsVehicles.isEmpty()) {
                 ParkingLotData.createParkingLotItems();
             }
-            ArrayList<Vehicle> vehicles = new ArrayList<>();
-            ParkingLotData.parkingLotsVehicles.add(Integer.parseInt(id), vehicles);
+
+            parkingLot.setVehicles(ParkingLotData.parkingLotsVehicles.get((Integer.parseInt(parkingLot.getId()) - 1)));
 
             String success;
 
@@ -100,7 +100,7 @@ public class ParkingLotManagementServlet extends HttpServlet {
 
             if (success.equals("yes")) {
                 request.setAttribute("id", parkingLot.getId());
-                RequestDispatcher dispacher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Basic.jsp");
+                RequestDispatcher dispacher = request.getRequestDispatcher("Spaces_Type.jsp");
                 dispacher.forward(request, response);
             } else {
                 RequestDispatcher dispacher = request.getRequestDispatcher("Create_Parking_Lot.jsp");

@@ -7,6 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <style>
+        h1 {
+            font-size: 21px;
+            color: white;
+        }
+
+        h2 {
+            font-size: 38px;
+            color: white;
+        }
+
+    </style>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Creación de Parqueos</title>
@@ -22,8 +34,12 @@
 
             </marquee>
         </i>
-        <br><br><br><br>
     <center>
+        <h1>
+            *El número del id del parqueo debe estar en el rango del 1 al 10
+        </h1>
+        <br>
+
         <form action="ParkingLotManagementServlet" method="post">
 
             <font size="7" color="white">Datos del Parqueo</font>
@@ -92,13 +108,13 @@
                         </td>
 
                     </tr>
-                    
+
                 </table>
             </b> 
             </font>
             <br>
 
-            <input type="submit" value="Guardar Parqueo" />
+            <input type="submit" value="Continuar" />
             <!-- TODO: Espacio entre botones -->
             <input type="reset" value="Cancelar" />
 

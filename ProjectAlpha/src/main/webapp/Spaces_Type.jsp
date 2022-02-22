@@ -8,6 +8,11 @@
 <!DOCTYPE html>
 <html>
 
+    <%
+        String id = (String) request.getAttribute("id");
+
+    %>
+
     <style>
         h1 {
             font-size: 23px;
@@ -30,27 +35,27 @@
         <br><br>
         <font size='9' color='white'>Tipos de Espacios en el Parqueo</font>
         <br><br><br><br>
-
-        <h1>
-            Ingrese el Tipo de Vehículo que tendrán los Espacios para Personas con Discapacidad:
-
-            <select name="vehicleTypeDisability">
-                <option value="motorcycle">Motocicleta</option>
-                <option value="ligthVehicles">Liviano</option>
-                <option value="heavyVehicles">Pesado</option>
-                <option value="bike">Bicicleta</option>
-                <option value="other">Otro</option>
-            </select>
-        </h1>
         
-        <br>
-
-        <h2>
-            Digite la cantidad de Espacios con el Tipo de Vehículo que Desee
-        </h2>
-
-        <br>
         <form action="SpacesTypeServlet" method="get">
+            <h1>
+                Ingrese el Tipo de Vehículo que tendrán los Espacios para Personas con Discapacidad:
+
+                <select name="vehicleTypeDisability">
+                    <option value="1">Motocicleta</option>
+                    <option value="2">Liviano</option>
+                    <option value="3">Pesado</option>
+                    <option value="4">Bicicleta</option>
+                    <option value="5">Otro</option>
+                </select>
+            </h1>
+
+            <br>
+
+            <h2>
+                Digite la cantidad de Espacios con el Tipo de Vehículo que Desee
+            </h2>
+
+            <br>
 
             <font size="5" color="white"><b>
 
@@ -133,7 +138,7 @@
                         </td>
 
                     </tr>
-                    <input type="hidden" name="id" value=${id}>
+                    <input type="hidden" name="id" value=<%=id%>>
                 </table>
             </b> 
             </font>

@@ -77,7 +77,7 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
 
             } else if (action.equalsIgnoreCase("edit")) {
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_User.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("Modify_Parking_Lot.jsp");
                 dispatcher.forward(request, response);
 
             }
@@ -98,7 +98,45 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Modify method
+          
+//        try {
+//            String id = request.getParameter("name");
+//            String name = request.getParameter("id");
+//            String numberOfSpaces = request.getParameter("numberOfSpaces");
+//            String numberOfSpacesWithDisabiltyAdaptation = request.getParameter("numberOfSpacesWithDisabiltyAdaptation");
+//
+//            User user = new User(name, id, phone, username, password, disabilityPresented);
+//
+//            userBusiness.modifyUser(username, user);
+//            
+//            User currentLoggedUser = userBusiness.getUser(username);
+//            
+//            if(currentLoggedUser.getRole().equalsIgnoreCase("customer")){
+//                
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/ModifyUser_Confirmation.jsp");
+//            dispatcher.forward(request, response);
+//            
+//            }
+//            
+//             if(currentLoggedUser.getRole().equalsIgnoreCase("clerk")){
+//                
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
+//            dispatcher.forward(request, response);
+//            
+//            }
+//             
+//              if(currentLoggedUser.getRole().equalsIgnoreCase("admin")){
+//                
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
+//            dispatcher.forward(request, response);
+//            
+//            }
+//
+//        } catch (ParseException | IOException | ServletException | java.text.ParseException ex) {
+//            Logger.getLogger(ClientManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
     }
 
     /**
