@@ -1,6 +1,6 @@
 <%-- 
     Document   : ShowParkingLot
-    Created on : Feb 18, 2022, 6:32:09 PM
+    Created on : Feb 22, 2022, 8:40:09 AM
     Author     : Fabio
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Parqueo</title>
+        <title>Listado de Parqueos</title>
     </head>
     <body background="Images/BG.png">
 

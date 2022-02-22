@@ -74,7 +74,7 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
 
                 parkingLotBusiness.deleteParkingLot(parkingLotId);
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/ParkingLot/Delete_Parking_Lot_Confirmation.jsp");
                 dispatcher.forward(request, response);
 
             } else if (action.equalsIgnoreCase("edit")) {
