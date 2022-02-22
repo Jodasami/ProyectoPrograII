@@ -69,11 +69,11 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
 
             ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
             ParkingLot parkingLot = parkingLotBusiness.getParkingLot(parkingLotId);
-            
+
             if (action.equalsIgnoreCase("delete")) {
 
                 parkingLotBusiness.deleteParkingLot(parkingLotId);
-                
+
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/User/DeleteUser_Confirmation.jsp");
                 dispatcher.forward(request, response);
 
@@ -84,7 +84,7 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
 
             }
 
-        } catch (ParseException | IOException | ServletException  ex) {
+        } catch (ParseException | IOException | ServletException ex) {
             Logger.getLogger(AdminRetrievalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -100,54 +100,33 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          
-//        try {
-//            String id = request.getParameter("name");
-//            String name = request.getParameter("id");
-//            String numberOfSpaces = request.getParameter("numberOfSpaces");
-//            String numberOfSpacesWithDisabiltyAdaptation = request.getParameter("numberOfSpacesWithDisabiltyAdaptation");
-//
-//            User user = new User(name, id, phone, username, password, disabilityPresented);
-//
-//            userBusiness.modifyUser(username, user);
-//            
-//            User currentLoggedUser = userBusiness.getUser(username);
-//            
-//            if(currentLoggedUser.getRole().equalsIgnoreCase("customer")){
-//                
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/ModifyUser_Confirmation.jsp");
-//            dispatcher.forward(request, response);
-//            
-//            }
-//            
-//             if(currentLoggedUser.getRole().equalsIgnoreCase("clerk")){
-//                
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Clerk_Confirmation.jsp");
-//            dispatcher.forward(request, response);
-//            
-//            }
-//             
-//              if(currentLoggedUser.getRole().equalsIgnoreCase("admin")){
-//                
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("/User/Admin_Confirmation.jsp");
-//            dispatcher.forward(request, response);
-//            
-//            }
-//
-//        } catch (ParseException | IOException | ServletException | java.text.ParseException ex) {
-//            Logger.getLogger(ClientManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
+
+        try {
+            String id = request.getParameter("name");
+            String name = request.getParameter("id");
+            String numberOfSpaces = request.getParameter("numberOfSpaces");
+            String numberOfSpacesWithDisabiltyAdaptation = request.getParameter("numberOfSpacesWithDisabiltyAdaptation");
+
+            ParkingLot parkingLot = new ParkingLot(id, name, Integer.parseInt(numberOfSpaces), Integer.parseInt(numberOfSpacesWithDisabiltyAdaptation));
+
+            ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
+            parkingLotBusiness.modifyParkingLot(id, parkingLot);
+
+        } catch (ParseException | IOException ex) {
+            Logger.getLogger(ClientManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+
+
+/**
+ * Returns a short description of the servlet.
+ *
+ * @return a String containing servlet description
+ */
+@Override
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
