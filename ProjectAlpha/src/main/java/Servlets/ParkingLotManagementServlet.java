@@ -57,8 +57,8 @@ public class ParkingLotManagementServlet extends HttpServlet {
 
             parkingLots = parkingLotBusiness.getAllparkingLots();
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
             request.setAttribute("parkingLots", parkingLots);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
             requestDispatcher.forward(request, response);
 
         } catch (ParseException ex) {

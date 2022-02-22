@@ -17,7 +17,10 @@
         <br><br><br><br><br><br><br><br><br>
         <b><font size="7" color="white">Parqueo Configurado con Éxito</font></b>
         <br>
-        <input type="button" value="Continuar" onclick="window.location='Administrator_Menu.jsp'" >
+        <form action="ParkingLotManagementServlet" method="get">
+            <input type="submit" value="Aceptar">
+        </form>
+        
     </center>
 
 </body>

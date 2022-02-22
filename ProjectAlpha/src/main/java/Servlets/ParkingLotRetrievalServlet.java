@@ -112,21 +112,22 @@ public class ParkingLotRetrievalServlet extends HttpServlet {
             ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
             parkingLotBusiness.modifyParkingLot(id, parkingLot);
 
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Spaces_Type.jsp");
+            dispatcher.forward(request, response);
+
         } catch (ParseException | IOException ex) {
             Logger.getLogger(ClientManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-
-
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
-@Override
-        public String getServletInfo() {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

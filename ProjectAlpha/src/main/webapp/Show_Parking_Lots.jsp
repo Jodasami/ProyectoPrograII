@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Vehículos</title>
+        <title>Listado de Parqueo</title>
     </head>
     <body background="Images/BG.png">
 

@@ -251,20 +251,9 @@ public class ParkingLotData {
                 parkingLotObject.put("name", parkingLot.getName());
                 parkingLotObject.put("numberOfSpaces", parkingLot.getNumberOfSpaces());
                 parkingLotObject.put("numberOfSpacesWithDisabiltyAdaptation", parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
-
-                //Almacenar todos los arreglos de spaces ya configurados y obtenerlo
-//                spaces = configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation());
-   
-                //Redireccionar otra vez al jsp para configurar los espacios
                 
                 ArrayList<Vehicle> vehicles = new ArrayList<>();
                 parkingLotsVehicles.add(Integer.parseInt(parkingLot.getId()), vehicles);
-                
-                //Esto no se hace aquí porque en el Spaces_Type.jsp ya se hace
-                
-//                Space[] spaces = new Space[parkingLot.getNumberOfSpaces()];
-//                spacesParkingLots.add(Integer.parseInt(parkingLot.getId()), spaces);
-//                 parkingLot.setSpaces(spaces);
                 
                 printWriter.println(parkingLotObject.toJSONString());
             }
