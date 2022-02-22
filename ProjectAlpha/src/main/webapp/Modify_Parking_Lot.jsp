@@ -17,13 +17,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificación de Parqueos</title>
     </head>
+    <center>
     <body background="Images/BG.png">
         <b>
             <font size=8 color=white>Modificación de Parqueos</font>
         </b>
 
         <br><br><br><br>
-    <center>
+    
         <form action="ParkingLotRetrievalServlet" method="post">
 
             <font size="7" color="white">Datos del Parqueo</font>
