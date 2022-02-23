@@ -51,7 +51,7 @@
                 <tr>
                     <td>
                         <font size="4" color="white">
-                        <a href="./RemoveAndCollect_Vehicle.jsp">Retirar Vehículo y Cobrar</a>
+                        <a href="RemoveVehicleServlet">Retirar un Vehículo y Cobrar</a>
                         </font>
                     </td>
 

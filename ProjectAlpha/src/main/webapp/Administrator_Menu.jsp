@@ -59,7 +59,14 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./AssignSpace_ParkingLot.jsp">Asignar un Espacio a un Cliente</a>
+                        <a href="Park_Vehicle_In_Parking_Lot.jsp">Asignar un Espacio a un Vehículo</a>
+                        </font>
+                    </td>
+                    <td> 
+                    </td>
+                    <td> 
+                        <font size="4" color="white">
+                        <a href="RemoveVehicleServlet">Retirar un Vehículo y Cobrar</a>
                         </font>
                     </td>
                 </tr>

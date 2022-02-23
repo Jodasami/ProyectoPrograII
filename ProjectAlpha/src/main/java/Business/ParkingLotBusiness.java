@@ -7,6 +7,7 @@ package Business;
 import Data.ParkingLotData;
 import Domain.ParkingLot;
 import Domain.Space;
+import Domain.Vehicle;
 import Domain.VehicleType;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,6 +56,14 @@ public class ParkingLotBusiness {
     public Space[] configureSpacesForDisabiltityAdaptation(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, String vehicleTypeDisability) {
         return parkingLotData.configureSpacesForDisabiltityAdaptation(spaces, numberOfSpacesWithDisabilityAdaptation, vehicleTypeDisability);
     }
+    
+    public int parkVehicleInParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
+        return parkingLotData.parkVehicleInParkingLot(vehicle, parkingLot);
+    }
+    
+     public void removeVehicleFromParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
+         parkingLotData.removeVehicleFromParkingLot(vehicle, parkingLot);
+     }
 
     public LinkedList<ParkingLot> getAllparkingLots() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
         return parkingLotData.getAllparkingLots();

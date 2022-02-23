@@ -7,16 +7,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
+    <%
+
+        String fee = (String) request.getAttribute("fee");
+
+
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Parquear Vehículos</title>
+        <title>Retiro de Vehículos</title>
     </head>
     <body  background="Images/BG.png">
     <center>
         <br><br>
-        <font size='9' color='white'>Parquear Vehículos</font>
+        <font size='9' color='white'>Retiro de Vehículos</font>
 
-        <form action="ParkingVehiclesServlet" method="get">
+        <form action="ParkingAndRetireVehiclesServlet" method="post">
 
             <br><br>
 
@@ -35,6 +42,10 @@
             <font size='5' color='white'>Placa del Vehículo:</font>
 
             <input type="text" name="plate"> 
+            
+            <br>
+
+            <font size='5' color='white'>Monto del Parqueo: <%=fee%></font>
 
             <input type="submit" value="Continuar" />
         </form>

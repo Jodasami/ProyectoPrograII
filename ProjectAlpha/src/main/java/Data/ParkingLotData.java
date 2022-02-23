@@ -98,7 +98,7 @@ public class ParkingLotData {
         return parkingLot;
     }
     
-    public int registerVehicleInParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
+    public int parkVehicleInParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
         
         ArrayList<Vehicle> vehiclesInParkingLot = parkingLot.getVehicles();
         Space spaces[] = parkingLot.getSpaces();
@@ -150,6 +150,30 @@ public class ParkingLotData {
         parkingLot.setVehicles(vehiclesInParkingLot);
         
         return spaceId;
+        
+    }
+    
+      public void removeVehicleFromParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
+        
+        ArrayList<Vehicle> vehiclesInParkingLot = parkingLot.getVehicles();
+        Space spaces[] = parkingLot.getSpaces();
+        //recorre la lista de vehículos para ver en qué posición
+        //debemos retirar al vehículo actual
+        for (int i = 0; i < vehiclesInParkingLot.size(); i++) {
+            
+            if (vehiclesInParkingLot.get(i) == vehicle) {
+                
+                vehiclesInParkingLot.remove(vehicle);
+                spaces[i].setSpaceTaken(false);
+                break;
+            }
+            
+        }
+        //*************actualizamos los espacios liberados
+        //y los vehículos registrados en el parqueo
+
+        parkingLot.setSpaces(spaces);
+        parkingLot.setVehicles(vehiclesInParkingLot);
         
     }
     
@@ -269,29 +293,7 @@ public class ParkingLotData {
         tempFile.renameTo(file);
     }
     
-    public void removeVehicleFromParkingLot(Vehicle vehicle, ParkingLot parkingLot) {
-        
-        ArrayList<Vehicle> vehiclesInParkingLot = parkingLot.getVehicles();
-        Space spaces[] = parkingLot.getSpaces();
-        //recorre la lista de vehículos para ver en qué posición
-        //debemos retirar al vehículo actual
-        for (int i = 0; i < vehiclesInParkingLot.size(); i++) {
-            
-            if (vehiclesInParkingLot.get(i) == vehicle) {
-                
-                vehiclesInParkingLot.remove(vehicle);
-                spaces[i].setSpaceTaken(false);
-                break;
-            }
-            
-        }
-        //*************actualizamos los espacios liberados
-        //y los vehículos registrados en el parqueo
-
-        parkingLot.setSpaces(spaces);
-        parkingLot.setVehicles(vehiclesInParkingLot);
-        
-    }
+  
     
     public Space[] configureSpacesForDisabiltityAdaptation(Space[] spaces, int numberOfSpacesWithDisabilityAdaptation, String vehicleTypeDisability) {
         

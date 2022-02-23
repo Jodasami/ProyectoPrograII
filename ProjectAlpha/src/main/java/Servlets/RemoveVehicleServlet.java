@@ -4,29 +4,19 @@
  */
 package Servlets;
 
-import Business.UserBusiness;
-import Data.UserData;
-import Domain.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Fabio
  */
-@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
-public class RoleUserTypeServlet extends HttpServlet {
-
-    UserBusiness userBusiness = new UserBusiness();
+public class RemoveVehicleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +35,10 @@ public class RoleUserTypeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoleUserTypeServlet</title>");
+            out.println("<title>Servlet RemoveVehicleServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RemoveVehicleServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,24 +56,14 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Valida redirección a la hora de eliminar un usuario
 
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+        //Parte de mostrar el fee al usuario en Remove_Vehicle_From_Parking_Lot
+        
+        String fee = "";
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Admin.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Clerk.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-            requestDispatcher.forward(request, response);
-        }
-
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Remove_Vehicle_From_Parking_Lot.jsp");
+        request.setAttribute("fee", fee);
+        requestDispatcher.forward(request, response);
     }
 
     /**
@@ -97,19 +77,7 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //Redirecciona a la hora de que el dependiente o admin parquean un vehículo
-        
-          if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

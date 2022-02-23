@@ -4,16 +4,16 @@
  */
 package Servlets;
 
-import Business.UserBusiness;
-import Data.UserData;
-import Domain.User;
+import Business.ParkingLotBusiness;
+import Business.VehicleBusiness;
+import Domain.ParkingLot;
+import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +23,10 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
-public class RoleUserTypeServlet extends HttpServlet {
+public class ParkingAndRetireVehiclesServlet extends HttpServlet {
 
-    UserBusiness userBusiness = new UserBusiness();
+    ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
+    VehicleBusiness vehicleBusiness = new VehicleBusiness();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class RoleUserTypeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoleUserTypeServlet</title>");
+            out.println("<title>Servlet ParkingVehiclesServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ParkingVehiclesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,22 +66,24 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Valida redirección a la hora de eliminar un usuario
 
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+        try {
+            String idParking = request.getParameter("idParking");
+            //Por ahora no se ocupa la cédula, únicamente la placa ya que es única y podemos traer todo
+            String idUser = request.getParameter("idUser");
+            String plate = request.getParameter("plate");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Admin.jsp");
+            Vehicle vehicle = vehicleBusiness.getVehicle(plate);
+            ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
+
+            int spaceNumber = parkingLotBusiness.parkVehicleInParkingLot(vehicle, parkingLot);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ParkingLot/Park_Vehicle_Confirmation.jsp");
+            request.setAttribute("spaceNumber", spaceNumber);
             requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Users_Clerk.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-            requestDispatcher.forward(request, response);
+        } catch (ParseException | java.text.ParseException ex) {
+            Logger.getLogger(ParkingAndRetireVehiclesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -98,17 +100,25 @@ public class RoleUserTypeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //Redirecciona a la hora de que el dependiente o admin parquean un vehículo
-        
-          if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+        try {
+            String idParking = request.getParameter("idParking");
+            //Por ahora no se ocupa la cédula, únicamente la placa ya que es única y podemos traer todo
+            String idUser = request.getParameter("idUser");
+            String plate = request.getParameter("plate");
+            
+            //Iría alguna parte del fee aquí?
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
+            Vehicle vehicle = vehicleBusiness.getVehicle(plate);
+            ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu.jsp");
+            parkingLotBusiness.removeVehicleFromParkingLot(vehicle, parkingLot);
+            
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ParkingLot/Remove_Vehicle_Confirmation.jsp");
+            
             requestDispatcher.forward(request, response);
+
+        } catch (ParseException | java.text.ParseException ex) {
+            Logger.getLogger(ParkingAndRetireVehiclesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
