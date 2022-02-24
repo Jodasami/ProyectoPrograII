@@ -7,13 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
-    <%
-
-        String fee = (String) request.getAttribute("fee");
-
-
-    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Retiro de Vehículos</title>
@@ -23,29 +16,21 @@
         <br><br>
         <font size='9' color='white'>Retiro de Vehículos</font>
 
-        <form action="ParkingAndRetireVehiclesServlet" method="post">
+        <br><br><br><br><br>
 
-            <br><br>
+        <form action="RemoveVehicleServlet" method="get">
 
             <font size='5' color='white'>Número del Parqueo:</font>
 
-            <input type="text" name="idParking">      
+            <input type="text" name="idParking">     
+            
+            <br><br>
 
-            <br>
-
-            <font size='5' color='white'>Cédula del Cliente:</font>
-
-            <input type="text" name="idUser"> 
-
-            <br>
-
-            <font size='5' color='white'>Placa del Vehículo:</font>
+            <font size='5' color='white'>Digite la Placa del Vehículo:</font>
 
             <input type="text" name="plate"> 
-            
-            <br>
 
-            <font size='5' color='white'>Monto del Parqueo: <%=fee%></font>
+            <br><br>
 
             <input type="submit" value="Continuar" />
         </form>

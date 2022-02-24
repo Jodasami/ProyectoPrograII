@@ -17,12 +17,14 @@ public class Vehicle {
     private String model;
     private User owner;
     private VehicleType vehicleType;
-    private int space;
     private User p1;
     private User p2;
     private User p3;
     private User p4;
     private int numberPassengers;
+    private String parkingName;
+    private String spaceParked;
+    private String parkingTime;
 
     public Vehicle(String plate, String color, String brand, String model, User owner, VehicleType vehicleType) {
         this.plate = plate;
@@ -33,70 +35,57 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public int getSpace() {
-        return space;
-    }
-
-    public void setSpace(int space) {
-        this.space = space;
-    }
-
     public Vehicle() {
 
     }
 
-    public Vehicle(String plate, String color, String brand, String model, User owner, VehicleType vehicleType, int space, int numberPassengers) {
+    public Vehicle(String plate, String color, String brand, String model, User owner, VehicleType vehicleType, int numberPassengers) {
         this.plate = plate;
         this.color = color;
         this.brand = brand;
         this.model = model;
         this.owner = owner;
         this.vehicleType = vehicleType;
-        this.space = space;
         this.numberPassengers = numberPassengers;
     }
 
-    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, VehicleType vehicleType, int space, int numberPassengers) {
+    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, VehicleType vehicleType, int numberPassengers) {
         this.plate = plate;
         this.color = color;
         this.brand = brand;
         this.model = model;
         this.owner = owner;
         this.vehicleType = vehicleType;
-        this.space = space;
         this.numberPassengers = numberPassengers;
     }
 
-    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, VehicleType vehicleType, int space, int numberPassengers) {
+    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, VehicleType vehicleType, int numberPassengers) {
         this.plate = plate;
         this.color = color;
         this.brand = brand;
         this.model = model;
         this.owner = owner;
         this.vehicleType = vehicleType;
-        this.space = space;
         this.numberPassengers = numberPassengers;
     }
 
-    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, User p3, VehicleType vehicleType, int space, int numberPassengers) {
+    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, User p3, VehicleType vehicleType, int numberPassengers) {
         this.plate = plate;
         this.color = color;
         this.brand = brand;
         this.model = model;
         this.owner = owner;
         this.vehicleType = vehicleType;
-        this.space = space;
         this.numberPassengers = numberPassengers;
     }
 
-    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, User p3, User p4, VehicleType vehicleType, int space, int numberPassengers) {
+    public Vehicle(String plate, String color, String brand, String model, User owner, User p1, User p2, User p3, User p4, VehicleType vehicleType, int numberPassengers) {
         this.plate = plate;
         this.color = color;
         this.brand = brand;
         this.model = model;
         this.owner = owner;
         this.vehicleType = vehicleType;
-        this.space = space;
         this.numberPassengers = numberPassengers;
     }
 
@@ -190,6 +179,30 @@ public class Vehicle {
 
     public void setNumberPassengers(int numberPassengers) {
         this.numberPassengers = numberPassengers;
+    }
+
+    public String getParkingTime() {
+        return parkingTime;
+    }
+
+    public void setParkingTime(String parkingTime) {
+        this.parkingTime = parkingTime;
+    }
+
+    public String getSpaceParked() {
+        return spaceParked;
+    }
+
+    public void setSpaceParked(String spaceParked) {
+        this.spaceParked = spaceParked;
+    }
+
+    public String getParkingName() {
+        return parkingName;
+    }
+
+    public void setParkingName(String parkingName) {
+        this.parkingName = parkingName;
     }
 
 }

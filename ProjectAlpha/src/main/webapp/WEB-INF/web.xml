@@ -49,12 +49,24 @@
         <servlet-class>Servlets.SpacesTypeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ParkingAndRetireVehiclesServlet</servlet-name>
-        <servlet-class>Servlets.ParkingAndRetireVehiclesServlet</servlet-class>
+        <servlet-name>ParkingVehiclesServlet</servlet-name>
+        <servlet-class>Servlets.ParkingVehiclesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveVehicleServlet</servlet-name>
         <servlet-class>Servlets.RemoveVehicleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeeManagementServlet</servlet-name>
+        <servlet-class>Servlets.FeeManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeeRetrievalServlet</servlet-name>
+        <servlet-class>Servlets.FeeRetrievalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ParkedVehiclesServlet</servlet-name>
+        <servlet-class>Servlets.ParkedVehiclesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserInfoServlet</servlet-name>
@@ -105,16 +117,28 @@
         <url-pattern>/SpacesTypeServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ParkingAndRetireVehiclesServlet</servlet-name>
-        <url-pattern>/ParkingAndRetireVehiclesServlet</url-pattern>
+        <servlet-name>ParkingVehiclesServlet</servlet-name>
+        <url-pattern>/ParkingVehiclesServlet</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>Login.jsp</welcome-file>
-    </welcome-file-list>
     <servlet-mapping>
         <servlet-name>RemoveVehicleServlet</servlet-name>
         <url-pattern>/RemoveVehicleServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeeManagementServlet</servlet-name>
+        <url-pattern>/FeeManagementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeeRetrievalServlet</servlet-name>
+        <url-pattern>/FeeRetrievalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ParkedVehiclesServlet</servlet-name>
+        <url-pattern>/ParkedVehiclesServlet</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>Login.jsp</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30

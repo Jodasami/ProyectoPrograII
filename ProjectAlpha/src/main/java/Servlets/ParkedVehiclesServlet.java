@@ -4,16 +4,15 @@
  */
 package Servlets;
 
-import Business.UserBusiness;
-import Data.UserData;
-import Domain.User;
+import Business.VehicleBusiness;
+import Domain.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +22,11 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
-public class RoleUserTypeServlet extends HttpServlet {
+public class ParkedVehiclesServlet extends HttpServlet {
 
-    UserBusiness userBusiness = new UserBusiness();
-
+     VehicleBusiness vehicleBusiness;
+    LinkedList<Vehicle> vehicles;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,10 +44,10 @@ public class RoleUserTypeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoleUserTypeServlet</title>");
+            out.println("<title>Servlet ParkedVehiclesServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ParkedVehiclesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,53 +62,38 @@ public class RoleUserTypeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //Valida redirección a la hora de eliminar un usuario
+   @Override
+    public void init()
+            throws ServletException {
 
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-            requestDispatcher.forward(request, response);
-        }
+        vehicleBusiness = new VehicleBusiness();
+        vehicles = new LinkedList<>();
 
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        try {
+            
+            vehicles = vehicleBusiness.getAllVehicles();
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parked_Vehicles.jsp");
+            request.setAttribute("vehicles", vehicles);
+            requestDispatcher.forward(request, response);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(VehicleShowManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (java.text.ParseException ex) {
+            Logger.getLogger(VehicleShowManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //Redirecciona a la hora de que el dependiente o admin parquean un vehículo
-        
-          if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

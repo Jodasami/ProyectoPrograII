@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Parquear Vehículos</title>
@@ -24,17 +25,33 @@
 
             <input type="text" name="idParking">      
 
-            <br>
+            <br><br>
 
             <font size='5' color='white'>Cédula del Cliente:</font>
 
             <input type="text" name="idUser"> 
 
-            <br>
+            <br><br>
 
             <font size='5' color='white'>Placa del Vehículo:</font>
 
             <input type="text" name="plate"> 
+
+            <br><br>
+
+            <font size='5' color='white'>Tiempo que va a permanecer en el Parqueo:</font>
+
+            <input type="text" name="numParkingTime"> 
+
+            <select name="parkingTime">
+                <option value="hours">Horas</option>
+                <option value="days">Días</option>
+                <option value="weeks">Semanas</option>
+                <option value="months">Meses</option>
+                <option value="years">Años</option>
+            </select>
+
+            <br><br>
 
             <input type="submit" value="Continuar" />
         </form>

@@ -51,7 +51,7 @@
                 <tr>
                     <td>
                         <font size="4" color="white">
-                        <a href="RemoveVehicleServlet">Retirar un Vehículo y Cobrar</a>
+                        <a href="Remove_Vehicle_In_Parking_Lot.jsp">Retirar un Vehículo y Cobrar</a>
                         </font>
                     </td>
 
@@ -73,7 +73,7 @@
                 <tr>
                     <td> 
                         <font size="4" color="white">
-                        <a href="./ShowAll_Vehicles.jsp">Ver Vehículos Parqueados</a>
+                        <a href="ParkedVehiclesServlet">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
                 </tr>

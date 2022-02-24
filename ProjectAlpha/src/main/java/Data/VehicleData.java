@@ -108,6 +108,15 @@ public class VehicleData {
                         vehicle.setModel(jsonObject.get("model").toString());
                         vehicle.setOwner((User) jsonObject.get("owner"));
                         vehicle.setVehicleType((VehicleType) jsonObject.get("vehicleType"));
+                        if (jsonObject.get("parkingName").toString() != null) {
+                            vehicle.setParkingTime(jsonObject.get("parkingName").toString());
+                        }
+                        if (jsonObject.get("spaceParked").toString() != null) {
+                            vehicle.setParkingTime(jsonObject.get("spaceParked").toString());
+                        }
+                        if (jsonObject.get("parkingTime").toString() != null) {
+                            vehicle.setParkingTime(jsonObject.get("parkingTime").toString());
+                        }
                     }
 
                 }
@@ -120,43 +129,6 @@ public class VehicleData {
             file.close();
 
         }
-        return vehicle;
-    }
-
-    public Vehicle getVehicle(String plate, String color) throws ParseException, IOException, org.json.simple.parser.ParseException {
-
-        Vehicle vehicle = new Vehicle();
-        JSONObject jsonObject;//THIRD PARTY
-
-        // This will reference one line at a time
-        String line = null;
-
-        // FileReader reads text files in the default encoding.
-        FileReader fileReader = new FileReader(JSONFILEPATH);
-
-        // Always wrap FileReader in BufferedReader.
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-        while ((line = bufferedReader.readLine()) != null) {
-
-            jsonObject = (JSONObject) new JSONParser().parse(line);
-
-            if (jsonObject.get("plate").toString().equals(plate) && jsonObject.get("color").toString().equals(color)) {
-                vehicle.setPlate(jsonObject.get("plate").toString());
-                vehicle.setColor(jsonObject.get("color").toString());
-                vehicle.setBrand(jsonObject.get("brand").toString());
-                vehicle.setModel(jsonObject.get("model").toString());
-                vehicle.setOwner((User) jsonObject.get("owner"));
-                vehicle.setVehicleType((VehicleType) jsonObject.get("vehicleType"));
-
-            } else {
-                System.out.println("");
-            }
-
-        }
-        // Always close files.
-        bufferedReader.close();
-
         return vehicle;
     }
 
@@ -272,6 +244,15 @@ public class VehicleData {
                 vehicleObject.put("model", vehicle.getModel());
                 vehicleObject.put("owner", vehicle.getOwner());
                 vehicleObject.put("vehicleType", vehicle.getVehicleType());
+                if (vehicle.getParkingTime() != null) {
+                    vehicleObject.put("parkingName", vehicle.getParkingTime());
+                }
+                if (vehicle.getSpaceParked() != null) {
+                    vehicleObject.put("spaceParked", vehicle.getParkingTime());
+                }
+                if (vehicle.getParkingTime() != null) {
+                    vehicleObject.put("parkingTime", vehicle.getParkingTime());
+                }
 
                 printWriter.println(vehicleObject.toJSONString());
             }

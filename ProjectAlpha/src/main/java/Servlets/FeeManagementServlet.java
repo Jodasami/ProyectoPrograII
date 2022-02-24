@@ -4,16 +4,16 @@
  */
 package Servlets;
 
-import Business.UserBusiness;
-import Data.UserData;
-import Domain.User;
+import Business.FeeBusiness;
+import Domain.Fee;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +23,10 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-@WebServlet(name = "RoleUserTypeServlet", urlPatterns = {"/RoleUserTypeServlet"})
-public class RoleUserTypeServlet extends HttpServlet {
+public class FeeManagementServlet extends HttpServlet {
 
-    UserBusiness userBusiness = new UserBusiness();
+    FeeBusiness feeBusiness = new FeeBusiness();
+    LinkedList<Fee> fees;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class RoleUserTypeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoleUserTypeServlet</title>");
+            out.println("<title>Servlet FeeManagementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoleUserTypeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FeeManagementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,22 +66,16 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Valida redirección a la hora de eliminar un usuario
+        try {
 
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+            fees = feeBusiness.getAllFees();
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Fees.jsp");
+            request.setAttribute("fees", fees);
             requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
-            requestDispatcher.forward(request, response);
+        } catch (ParseException | FileNotFoundException ex) {
+            Logger.getLogger(FeeManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -97,18 +91,28 @@ public class RoleUserTypeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //Redirecciona a la hora de que el dependiente o admin parquean un vehículo
-        
-          if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+        try {
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Administrator_Menu.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk")) {
+            String fee = request.getParameter("fee");
+            String vehicleType = request.getParameter("vehicleType");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Clerk_Menu.jsp");
-            requestDispatcher.forward(request, response);
+            Fee f = new Fee(fee, vehicleType);
+            String success = feeBusiness.registerFee(f);
+            if (success.equals("yes")) {
+
+                RequestDispatcher dispacher = request.getRequestDispatcher("/Fee/Fee_Confirmation.jsp");
+                dispacher.forward(request, response);
+            } else {
+
+                RequestDispatcher dispacher = request.getRequestDispatcher("Register_Fee.jsp");
+                response.setHeader("error", "Una tarifa ya está asignada a ese tipo de vehículo");
+                dispacher.forward(request, response);
+            }
+
+        } catch (java.text.ParseException ex) {
+            Logger.getLogger(FeeManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(FeeManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

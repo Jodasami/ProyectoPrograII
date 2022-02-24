@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
  *
  * @author Fabio
  */
-public class ParkingAndRetireVehiclesServlet extends HttpServlet {
+public class ParkingVehiclesServlet extends HttpServlet {
 
     ParkingLotBusiness parkingLotBusiness = new ParkingLotBusiness();
     VehicleBusiness vehicleBusiness = new VehicleBusiness();
@@ -72,18 +72,27 @@ public class ParkingAndRetireVehiclesServlet extends HttpServlet {
             //Por ahora no se ocupa la cédula, únicamente la placa ya que es única y podemos traer todo
             String idUser = request.getParameter("idUser");
             String plate = request.getParameter("plate");
-
+            String numParkingTime = request.getParameter("numParkingTime");
+            String parkingTime = request.getParameter("parkingTime");
+            
             Vehicle vehicle = vehicleBusiness.getVehicle(plate);
             ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
-
+            
             int spaceNumber = parkingLotBusiness.parkVehicleInParkingLot(vehicle, parkingLot);
+            
+            //Le seteamos la hora estimada que va a permanecer en el parqueo
+            vehicle.setParkingTime(numParkingTime+" "+parkingTime);
+            vehicle.setParkingName(parkingLot.getName());
+            vehicle.setSpaceParked(""+spaceNumber);
+            
+            vehicleBusiness.modifyVehicle(plate, vehicle);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ParkingLot/Park_Vehicle_Confirmation.jsp");
             request.setAttribute("spaceNumber", spaceNumber);
             requestDispatcher.forward(request, response);
 
         } catch (ParseException | java.text.ParseException ex) {
-            Logger.getLogger(ParkingAndRetireVehiclesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingVehiclesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -99,27 +108,7 @@ public class ParkingAndRetireVehiclesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
-            String idParking = request.getParameter("idParking");
-            //Por ahora no se ocupa la cédula, únicamente la placa ya que es única y podemos traer todo
-            String idUser = request.getParameter("idUser");
-            String plate = request.getParameter("plate");
-            
-            //Iría alguna parte del fee aquí?
-
-            Vehicle vehicle = vehicleBusiness.getVehicle(plate);
-            ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
-
-            parkingLotBusiness.removeVehicleFromParkingLot(vehicle, parkingLot);
-            
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ParkingLot/Remove_Vehicle_Confirmation.jsp");
-            
-            requestDispatcher.forward(request, response);
-
-        } catch (ParseException | java.text.ParseException ex) {
-            Logger.getLogger(ParkingAndRetireVehiclesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//       
     }
 
     /**

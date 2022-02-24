@@ -46,11 +46,6 @@ public class VehicleBusiness {
     public LinkedList<Vehicle> getAllVehicles() throws ParseException, java.text.ParseException, IOException {
         return vehicleData.getAllVehicles();
     }
-
-    public Vehicle getVehicle(String plate, String color) throws ParseException, IOException, java.text.ParseException {
-
-        return vehicleData.getVehicle(plate, color);
-    }
     
     public Vehicle getVehicle(String plate) throws ParseException, IOException, java.text.ParseException {
 
@@ -76,7 +71,7 @@ public class VehicleBusiness {
     
      public VehicleType getVechileType(String vType){
         
-       String[] types = {"Tipos de vehículo", "moto", "liviano", "pesado", "bicicleta", "otro"};
+       String[] types = {"Vehicle Types", "motorcycle", "ligthVehicles", "heavyVehicles", "bike", "other"};
         byte[] tires = {0, 2, 4, 8, 12, -1};
 
         String allTypes = "";

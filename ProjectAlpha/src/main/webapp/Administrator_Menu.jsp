@@ -36,6 +36,12 @@
                         </font>
                     </th>
 
+                    <th>
+                        <font size="5" color="white">
+                        Tarifa del Parqueo
+                        </font>
+                    </th>
+
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +58,12 @@
                     </td>
                     <td>
                         <font size="4" color="white">
-                        <a href="Show_Vehicles.jsp">Vehículos Registrados</a>
+                        <a href="VehicleShowManagementServlet">Vehículos Registrados</a>
+                        </font>
+                    </td>
+                      <td>
+                        <font size="4" color="white">
+                        <a href="Register_Fee.jsp">Agregar tarifa de Vehículo</a>
                         </font>
                     </td>
                 </tr>
@@ -66,7 +77,12 @@
                     </td>
                     <td> 
                         <font size="4" color="white">
-                        <a href="RemoveVehicleServlet">Retirar un Vehículo y Cobrar</a>
+                        <a href="Remove_Vehicle_In_Parking_Lot.jsp">Retirar un Vehículo y Cobrar</a>
+                        </font>
+                    </td>
+                      <td>
+                        <font size="4" color="white">
+                        <a href="FeeManagementServlet">Tarifas Registradas</a>
                         </font>
                     </td>
                 </tr>
@@ -74,6 +90,13 @@
                     <td>
                         <font size="4" color="white">
                         <a href="./Register_User_Admin.jsp">Registrar Usuario</a>
+                        </font>
+                    </td>
+                    <td> 
+                    </td>
+                    <td> 
+                        <font size="4" color="white">
+                        <a href="ParkedVehiclesServlet">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
                 </tr>

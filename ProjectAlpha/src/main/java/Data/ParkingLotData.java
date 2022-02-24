@@ -378,7 +378,7 @@ public class ParkingLotData {
     
     private VehicleType configureVehicleTypeOfSpaces(String vT) {
         
-        String[] types = {"Tipos de vehículo", "motorcycle", "ligthVehicles", "heavyVehicles", "bike", "other"};
+        String[] types = {"Vehicle Types", "motorcycle", "ligthVehicles", "heavyVehicles", "bike", "other"};
         byte[] tires = {0, 2, 4, 8, 12, -1};
         
         String allTypes = "";
