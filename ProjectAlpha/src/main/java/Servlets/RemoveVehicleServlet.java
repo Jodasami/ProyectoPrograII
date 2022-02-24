@@ -7,13 +7,16 @@ package Servlets;
 import Business.FeeBusiness;
 import Business.ParkingLotBusiness;
 import Business.VehicleBusiness;
+import Data.ParkingLotData;
 import Data.UserData;
 import Domain.Fee;
 import Domain.ParkingLot;
+import Domain.Space;
 import Domain.Vehicle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -133,6 +136,12 @@ public class RemoveVehicleServlet extends HttpServlet {
 
             }
 
+            ArrayList<Vehicle> vehicles = new ArrayList<>();
+            ParkingLotData.parkingLotsVehicles.add(Integer.parseInt(idParking), vehicles);
+            
+            Space[] spaces = new Space[10];
+            ParkingLotData.spacesParkingLots.add(Integer.parseInt(idParking), spaces);
+            
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Pay_ParkingLot.jsp");
             request.setAttribute("fee", totalAmount);
             request.setAttribute("idParking", idParking);
