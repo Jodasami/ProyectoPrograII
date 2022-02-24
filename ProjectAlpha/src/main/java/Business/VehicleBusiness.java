@@ -47,14 +47,29 @@ public class VehicleBusiness {
         return vehicleData.getAllVehicles();
     }
     
+    public LinkedList<Vehicle> getAllVehiclesParked() throws ParseException, java.text.ParseException, IOException {
+        return vehicleData.getAllVehiclesParked();
+    }
+    
     public Vehicle getVehicle(String plate) throws ParseException, IOException, java.text.ParseException {
 
         return vehicleData.getVehicle(plate);
     }
     
+    public Vehicle getVehicleToPark(String plate) throws ParseException, IOException, java.text.ParseException {
+
+        return vehicleData.getVehicleToPark(plate);
+    }
+    
      public void modifyVehicle(String vehiclePlate, Vehicle vehicle) throws IOException, ParseException, java.text.ParseException {
 
         vehicleData.modifyVehicleFromFile(vehiclePlate, vehicle);
+
+    }
+     
+     public void modifyVehicleToPark(String vehiclePlate, Vehicle vehicle) throws IOException, ParseException, java.text.ParseException {
+
+        vehicleData.modifyVehicleToPark(vehiclePlate, vehicle);
 
     }
      

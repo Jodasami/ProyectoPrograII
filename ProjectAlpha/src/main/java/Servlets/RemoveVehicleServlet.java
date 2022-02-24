@@ -167,7 +167,7 @@ public class RemoveVehicleServlet extends HttpServlet {
             ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
 
             VehicleBusiness vehicleBusiness = new VehicleBusiness();
-            Vehicle vehicle = vehicleBusiness.getVehicle(plate);
+            Vehicle vehicle = vehicleBusiness.getVehicleToPark(plate);
 
             parkingLotBusiness.removeVehicleFromParkingLot(vehicle, parkingLot);
 

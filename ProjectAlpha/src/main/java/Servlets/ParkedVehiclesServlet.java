@@ -77,7 +77,7 @@ public class ParkedVehiclesServlet extends HttpServlet {
         
         try {
             
-            vehicles = vehicleBusiness.getAllVehicles();
+            vehicles = vehicleBusiness.getAllVehiclesParked();
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parked_Vehicles.jsp");
             request.setAttribute("vehicles", vehicles);

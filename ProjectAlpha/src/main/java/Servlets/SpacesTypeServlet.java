@@ -79,6 +79,7 @@ public class SpacesTypeServlet extends HttpServlet {
 
             ParkingLot parkingLot = parkingLotBusiness.getParkingLot(id);
             Space[] spaces = new Space[parkingLot.getNumberOfSpaces()];
+            int a = parkingLot.getNumberOfSpacesWithDisabiltyAdaptation();
 
             //Configurar espacios para personas con discapacidad
             spaces = parkingLotBusiness.configureSpacesForDisabiltityAdaptation(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation(), vehicleTypeDisability);
@@ -88,9 +89,9 @@ public class SpacesTypeServlet extends HttpServlet {
 
             if (sumSpacesType == standardAvailableSpaces) {
 
-                parkingLotBusiness.configureSpaces(spaces, sumSpacesType, motorcycle, ligthVehicles, heavyVehicles, bike, other);
-                parkingLot.setSpaces(spaces);
-                ParkingLotData.spacesParkingLots.add(Integer.parseInt(id)-1, spaces);
+                parkingLotBusiness.configureSpaces(spaces, parkingLot.getNumberOfSpacesWithDisabiltyAdaptation(), motorcycle, ligthVehicles, heavyVehicles, bike, other);
+            
+                ParkingLotData.spacesParkingLots.add(Integer.parseInt(id), spaces);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/ParkingLot/Parking_Lot_Confirmation.jsp");
                 dispatcher.forward(request, response);

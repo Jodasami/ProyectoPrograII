@@ -14,7 +14,7 @@
     <body  background="Images/BG.png">
     <center>
         <br><br>
-        <font size='9' color='white'>Menú Para Administradores</font>
+        <font size='10' color='white'>Menú Para Administradores</font>
         <br><br><br><br>     
         <table cellpadding="3" cellspacing="5">
             <thead>
@@ -47,62 +47,62 @@
             <tbody>
                 <tr>
                     <td> 
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="./Create_Parking_Lot.jsp">Crear un Parqueo</a>
                         </font>
                     </td>
                     <td>
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="AdminManagementServlet">Ver Usuarios y Roles</a>
                         </font>
                     </td>
                     <td>
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="VehicleShowManagementServlet">Vehículos Registrados</a>
                         </font>
                     </td>
                       <td>
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="Register_Fee.jsp">Agregar tarifa de Vehículo</a>
                         </font>
                     </td>
                 </tr>
                 <tr>
                     <td> 
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="Park_Vehicle_In_Parking_Lot.jsp">Asignar un Espacio a un Vehículo</a>
                         </font>
                     </td>
                     <td> 
                     </td>
                     <td> 
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="Remove_Vehicle_In_Parking_Lot.jsp">Retirar un Vehículo y Cobrar</a>
                         </font>
                     </td>
                       <td>
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="FeeManagementServlet">Tarifas Registradas</a>
                         </font>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="./Register_User_Admin.jsp">Registrar Usuario</a>
                         </font>
                     </td>
                     <td> 
                     </td>
                     <td> 
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="ParkedVehiclesServlet">Ver Vehículos Parqueados</a>
                         </font>
                     </td>
                 </tr>
                 <tr>
                     <td> 
-                        <font size="4" color="white">
+                        <font size="5" color="white">
                         <a href="ParkingLotManagementServlet">Ver Parqueos y Espacios</a>
                         </font>
                     </td>
@@ -126,7 +126,7 @@
 
 
         <br><br>
-        <input type="button" value="Cerrar Sesión" onclick="window.location = 'Login.jsp'" >
+        <input type="button" value="Cerrar Sesión" onclick="window.location = 'Login.jsp'">
     </center>
 </body>
 </html>

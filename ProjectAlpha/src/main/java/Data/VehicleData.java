@@ -5,6 +5,7 @@
  */
 package Data;
 
+import Business.UserBusiness;
 import Domain.User;
 import Domain.Vehicle;
 import Domain.VehicleType;
@@ -27,8 +28,8 @@ import org.json.simple.parser.JSONParser;
 public class VehicleData {
 
     private static String currentVehiclePlate;
-//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
-    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+//    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
 
     public void insertVehicle(Vehicle vehicle)
             throws IOException {
@@ -80,6 +81,34 @@ public class VehicleData {
         return vehicles;
     }
 
+    public LinkedList<Vehicle> getAllVehiclesParked() throws ParseException, org.json.simple.parser.ParseException, FileNotFoundException, IOException {
+        LinkedList<Vehicle> vehicles = new LinkedList<>();
+        JSONObject jsonObject;
+
+// This will reference one line at a time
+        String line = null;
+// FileReader reads text files in the default encoding.
+        FileReader fileReader = new FileReader(JSONFILEPATH);
+// Always wrap FileReader in BufferedReader.
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonObject = (JSONObject) new JSONParser().parse(line);
+
+            Vehicle vehicle = new Vehicle();
+            vehicle.setPlate(jsonObject.get("plate").toString());
+            vehicle.setParkingName(jsonObject.get("parkingName").toString());
+            vehicle.setSpaceParked(jsonObject.get("spaceParked").toString());
+            vehicle.setParkingTime(jsonObject.get("parkingTime").toString());
+            vehicles.add(vehicle);
+        }
+// Always close files.
+        bufferedReader.close();
+
+// Or we could just do this:
+// ex.printStackTrace();
+        return vehicles;
+    }
+
     public Vehicle getVehicle(String plate) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 
         Vehicle vehicle = new Vehicle();
@@ -106,17 +135,72 @@ public class VehicleData {
                         vehicle.setColor(jsonObject.get("color").toString());
                         vehicle.setBrand(jsonObject.get("brand").toString());
                         vehicle.setModel(jsonObject.get("model").toString());
-                        vehicle.setOwner((User) jsonObject.get("owner"));
-                        vehicle.setVehicleType((VehicleType) jsonObject.get("vehicleType"));
-                        if (jsonObject.get("parkingName").toString() != null) {
-                            vehicle.setParkingTime(jsonObject.get("parkingName").toString());
-                        }
-                        if (jsonObject.get("spaceParked").toString() != null) {
-                            vehicle.setParkingTime(jsonObject.get("spaceParked").toString());
-                        }
-                        if (jsonObject.get("parkingTime").toString() != null) {
-                            vehicle.setParkingTime(jsonObject.get("parkingTime").toString());
-                        }
+
+                        UserBusiness userBussines = new UserBusiness();
+                        User user = userBussines.getUser(jsonObject.get("owner").toString());
+
+                        vehicle.setOwner(user);
+
+                        VehicleType vehicleType = new VehicleType();
+                        vehicleType.setDescription(jsonObject.get("vehicleType").toString());
+
+                        vehicle.setVehicleType(vehicleType);
+                    }
+
+                }
+            }
+            // Always close files.
+            bufferedReader.close();
+        } else {
+            //Crea archivo
+            FileWriter file = new FileWriter(JSONFILEPATH);
+            file.close();
+
+        }
+        return vehicle;
+    }
+
+    public Vehicle getVehicleToPark(String plate) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+
+        Vehicle vehicle = new Vehicle();
+        JSONObject jsonObject;
+
+        // This will reference one line at a time
+        String line = null;
+        FileReader fileReader = null;
+
+        // FileReader reads text files in the default encoding.
+        if (new File(JSONFILEPATH).exists()) {
+
+            fileReader = new FileReader(JSONFILEPATH);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((line = bufferedReader.readLine()) != null) {
+
+                jsonObject = (JSONObject) new JSONParser().parse(line);
+                if (jsonObject.get("plate") != null) {
+                    if (jsonObject.get("plate").toString().equals(plate)) {
+                        vehicle.setPlate(jsonObject.get("plate").toString());
+                        vehicle.setColor(jsonObject.get("color").toString());
+                        vehicle.setBrand(jsonObject.get("brand").toString());
+                        vehicle.setModel(jsonObject.get("model").toString());
+
+                        UserBusiness userBussines = new UserBusiness();
+                        User user = userBussines.getUser(jsonObject.get("owner").toString());
+
+                        vehicle.setOwner(user);
+
+                        VehicleType vehicleType = new VehicleType();
+                        vehicleType.setDescription(jsonObject.get("vehicleType").toString());
+
+                        vehicle.setVehicleType(vehicleType);
+
+                        vehicle.setParkingTime(jsonObject.get("parkingName").toString());
+                        vehicle.setParkingTime(jsonObject.get("spaceParked").toString());
+                        vehicle.setParkingTime(jsonObject.get("parkingTime").toString());
+
                     }
 
                 }
@@ -242,17 +326,58 @@ public class VehicleData {
                 vehicleObject.put("color", vehicle.getColor());
                 vehicleObject.put("brand", vehicle.getBrand());
                 vehicleObject.put("model", vehicle.getModel());
-                vehicleObject.put("owner", vehicle.getOwner());
-                vehicleObject.put("vehicleType", vehicle.getVehicleType());
-                if (vehicle.getParkingTime() != null) {
-                    vehicleObject.put("parkingName", vehicle.getParkingTime());
-                }
-                if (vehicle.getSpaceParked() != null) {
-                    vehicleObject.put("spaceParked", vehicle.getParkingTime());
-                }
-                if (vehicle.getParkingTime() != null) {
-                    vehicleObject.put("parkingTime", vehicle.getParkingTime());
-                }
+                vehicleObject.put("owner", vehicle.getOwner().getUsername());
+                vehicleObject.put("vehicleType", vehicle.getVehicleType().getDescription());
+
+                printWriter.println(vehicleObject.toJSONString());
+            }
+        }
+
+        bufferedReader.close();
+        printWriter.close();
+
+        //Delete the original file
+        file.delete();
+
+        //Rename the new file to the filename the original file had.
+        tempFile.renameTo(file);
+    }
+
+    public void modifyVehicleToPark(String plate, Vehicle vehicle) throws ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+
+        JSONObject vehicleObject;
+
+        File file = new File(JSONFILEPATH);
+
+        //Construct the new file that will later be renamed to the original filename. 
+        File tempFile = new File("Vehicles.json");
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(JSONFILEPATH));
+        PrintWriter printWriter = new PrintWriter(new FileWriter(tempFile));
+
+        String line = null;
+
+        //Read from the original file and write to the new 
+        //unless content matches data to be removed.
+        while ((line = bufferedReader.readLine()) != null) {
+
+            vehicleObject = (JSONObject) new JSONParser().parse(line);
+
+            if (!vehicleObject.get("plate").toString().equals(plate)) {
+
+                printWriter.println(line);
+                printWriter.flush();
+            } else {
+
+                vehicleObject.put("plate", vehicle.getPlate());
+                vehicleObject.put("color", vehicle.getColor());
+                vehicleObject.put("brand", vehicle.getBrand());
+                vehicleObject.put("model", vehicle.getModel());
+                vehicleObject.put("owner", vehicle.getOwner().getUsername());
+                vehicleObject.put("vehicleType", vehicle.getVehicleType().getDescription());
+                vehicleObject.put("parkingName", vehicle.getParkingTime());
+                vehicleObject.put("spaceParked", vehicle.getParkingTime());
+                vehicleObject.put("parkingTime", vehicle.getParkingTime());
 
                 printWriter.println(vehicleObject.toJSONString());
             }

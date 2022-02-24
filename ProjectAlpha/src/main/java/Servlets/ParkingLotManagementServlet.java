@@ -6,6 +6,7 @@ package Servlets;
 
 import Business.ParkingLotBusiness;
 import Data.ParkingLotData;
+import Data.UserData;
 import Domain.ParkingLot;
 import Domain.Space;
 import Domain.Vehicle;
@@ -57,9 +58,21 @@ public class ParkingLotManagementServlet extends HttpServlet {
 
             parkingLots = parkingLotBusiness.getAllparkingLots();
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
-            request.setAttribute("parkingLots", parkingLots);
-            requestDispatcher.forward(request, response);
+            if (UserData.getCurrentRoleUser().equalsIgnoreCase("admin")) {
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots_Admin.jsp");
+                request.setAttribute("parkingLots", parkingLots);
+                requestDispatcher.forward(request, response);
+
+            }
+
+            if (UserData.getCurrentRoleUser().equalsIgnoreCase("clerk") || UserData.getCurrentRoleUser().equalsIgnoreCase("customer")) {
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Show_Parking_Lots.jsp");
+                request.setAttribute("parkingLots", parkingLots);
+                requestDispatcher.forward(request, response);
+
+            }
 
         } catch (ParseException ex) {
             Logger.getLogger(VehicleShowManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,8 +104,6 @@ public class ParkingLotManagementServlet extends HttpServlet {
             if (ParkingLotData.parkingLotsVehicles.isEmpty()) {
                 ParkingLotData.createParkingLotItems();
             }
-
-            parkingLot.setVehicles(ParkingLotData.parkingLotsVehicles.get((Integer.parseInt(parkingLot.getId()) - 1)));
 
             String success;
 

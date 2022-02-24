@@ -27,7 +27,7 @@
 
         <form action="RemoveVehicleServlet" method="post">
 
-            <font size='5' color='white'>El total del monto a pagar es: <%=fee%></font>
+            <font size='5' color='white'>El total del monto a pagar es: <%=fee%> colones</font>
 
             <font size='5' color='white'>Gracias por utilizar nuestro Servicio</font>
 

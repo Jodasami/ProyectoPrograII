@@ -27,8 +27,8 @@ public class UserData {
 
     private static String currentUsername;
     private static String currentRoleUser;
-//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Users.json";
-    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Users.json";
+    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Users.json";
+//    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Users.json";
 
     public void insertUser(User user)
             throws IOException {
@@ -70,7 +70,6 @@ public class UserData {
             user.setPassword(jsonObject.get("password").toString());
             user.setDisabilityPresented((boolean) jsonObject.get("disabilityPresented"));
             user.setRole(jsonObject.get("role").toString());
-            System.out.println(user.toString());
             users.add(user);
         }
 // Always close files.

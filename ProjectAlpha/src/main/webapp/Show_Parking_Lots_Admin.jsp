@@ -30,7 +30,7 @@
             <td bgcolor="#000000" ><font size="5" color="white"><b>Nombre</b></font> </td>
             <td bgcolor="#000000" ><font size="5" color="white"><b>Número de Espacios del Parqueo</b></font> </td>
             <td bgcolor="#000000" ><font size="5" color="white"><b>Número de Espacios para Personas con Discapacidad</b></font> </td>
-            
+            <td bgcolor="#000000" ><font size="5" color="white"><b>Opciones</b></font> </td>
             
             <c:forEach items="${parkingLots}" var="currentParkingLot" varStatus="counter">
                 <c:set var="color" value="${counter.index%2==0? '#2666CF' : '#F5F2E7'}"/>
@@ -41,7 +41,8 @@
                     <td><font size="5"><c:out value="${currentParkingLot.numberOfSpaces}"/></font></td>
                     <td><font size="5"><c:out value="${currentParkingLot.numberOfSpacesWithDisabiltyAdaptation}"/></font></td>
 
-                    
+                    <td><font size="5"><a href="ParkingLotRetrievalServlet?action=edit&parkingLotId=<c:out value="${currentParkingLot.id}"/>">Modificar Parqueo</a></font>
+                        <font size="5"><a href="ParkingLotRetrievalServlet?action=delete&parkingLotId=<c:out value="${currentParkingLot.id}"/>">Eliminar Parqueo</a></font></td>
                 </tr>
             </c:forEach>
 
@@ -49,7 +50,7 @@
 
         </table>
         <br><br><br>
-        <input type="button" value="Volver al menú principal" onclick="history.back()" >
+        <input type="button" value="Volver al menú principal" onclick="window.location = 'Administrator_Menu.jsp'" >
     </center>
 
 </body>

@@ -53,7 +53,7 @@
                     </td>
                     <td>
                         <font size="4" color="white">
-                        <a href="./ShowAll_ParkingLot.jsp">Ver Parqueos Disponibles</a>
+                        <a href="ParkingLotManagementServlet">Ver Parqueos Disponibles</a>
                         </font>
                     </td>
                 </tr>

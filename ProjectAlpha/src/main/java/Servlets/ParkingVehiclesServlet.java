@@ -6,6 +6,7 @@ package Servlets;
 
 import Business.ParkingLotBusiness;
 import Business.VehicleBusiness;
+import Data.ParkingLotData;
 import Domain.ParkingLot;
 import Domain.Vehicle;
 import java.io.IOException;
@@ -77,15 +78,18 @@ public class ParkingVehiclesServlet extends HttpServlet {
             
             Vehicle vehicle = vehicleBusiness.getVehicle(plate);
             ParkingLot parkingLot = parkingLotBusiness.getParkingLot(idParking);
+            parkingLot.setSpaces(ParkingLotData.spacesParkingLots.get(Integer.parseInt(idParking)));
+            parkingLot.setVehicles(ParkingLotData.parkingLotsVehicles.get(Integer.parseInt(idParking)));
             
-            int spaceNumber = parkingLotBusiness.parkVehicleInParkingLot(vehicle, parkingLot);
+            String spaceNumber = Integer.toString(parkingLotBusiness.parkVehicleInParkingLot(vehicle, parkingLot));
+            
             
             //Le seteamos la hora estimada que va a permanecer en el parqueo
             vehicle.setParkingTime(numParkingTime+" "+parkingTime);
             vehicle.setParkingName(parkingLot.getName());
-            vehicle.setSpaceParked(""+spaceNumber);
+            vehicle.setSpaceParked(spaceNumber);
             
-            vehicleBusiness.modifyVehicle(plate, vehicle);
+            vehicleBusiness.modifyVehicleToPark(plate, vehicle);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ParkingLot/Park_Vehicle_Confirmation.jsp");
             request.setAttribute("spaceNumber", spaceNumber);
