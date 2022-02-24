@@ -28,8 +28,8 @@ import org.json.simple.parser.JSONParser;
 public class VehicleData {
 
     private static String currentVehiclePlate;
-    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
-//    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
+    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\Vehicles.json";
 
     public void insertVehicle(Vehicle vehicle)
             throws IOException {

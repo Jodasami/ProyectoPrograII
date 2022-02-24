@@ -29,8 +29,8 @@ import org.json.simple.parser.ParseException;
  */
 public class ParkingLotData {
 
-    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
-//    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
+//    final String JSONFILEPATH = "C:\\Users\\jodas\\Desktop\\ProyectoGit\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
+    final String JSONFILEPATH = "C:\\Users\\Fabio\\Desktop\\Progra 2\\Laboratorios Esteban\\ProyectoPrograII\\ProjectAlpha\\ParkingLots.json";
 
     public static ArrayList<ArrayList<Vehicle>> parkingLotsVehicles = new ArrayList<>();
     public static ArrayList<Space[]> spacesParkingLots = new ArrayList<>();
